@@ -6,7 +6,10 @@
     }
   },
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
     "production": [
       "default",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
@@ -34,7 +37,9 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": ["apps/api-e2e/**/*"]
+      "exclude": [
+        "apps/api-e2e/**/*"
+      ]
     },
     {
       "plugin": "@nx/eslint/plugin",
@@ -68,8 +73,13 @@
   "targetDefaults": {
     "build": {
       "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ]
     },
     "lint": {
       "cache": true,
@@ -80,6 +90,5 @@
         "{workspaceRoot}/eslint.config.js"
       ]
     }
-  },
-  "nxCloudAccessToken": "MWM5Y2E2YjEtYjg4Yy00OTY2LTg3MzEtNzc5MWFjYjkyNTFjfHJlYWQtd3JpdGU="
+  }
 }
