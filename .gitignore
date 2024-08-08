@@ -44,3 +44,10 @@ Thumbs.db
 # Next.js
 .next
 out
+# Local environment (copy .env.example -> .env)
+.env
+.env.*
+!.env.example
+
+# Runtime logs
+*.log
