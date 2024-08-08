@@ -1,0 +1,15 @@
+# Build scripts are opt-in. Only packages that genuinely need a post-install
+# step are allowed to run one; everything else installs from its published
+# artifacts, which keeps `pnpm install` fast and reproducible on CI.
+allowBuilds:
+  "@prisma/client": true
+  "@prisma/engines": true
+  "@swc/core": true
+  # Ships prebuilt binaries for every platform we target, so no node-gyp.
+  argon2: true
+  nx: true
+  prisma: true
+  core-js: false
+  core-js-pure: false
+  fsevents: false
+  nice-napi: false
