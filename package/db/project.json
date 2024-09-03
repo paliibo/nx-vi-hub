@@ -3,56 +3,42 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "package/db/src",
   "projectType": "library",
+  "// note": "Targets run from the workspace root so Prisma picks up the single root .env.",
   "targets": {
-    "prisma": {
-      "command": "prisma",
-      "options": {
-        "cwd": "package/db"
-      }
+    "generate": {
+      "command": "prisma generate --schema=package/db/prisma/schema.prisma"
     },
     "push": {
-      "command": "prisma db push",
-      "options": {
-        "cwd": "package/db"
-      }
+      "command": "prisma db push --schema=package/db/prisma/schema.prisma"
     },
-    "pull": {
-      "command": "prisma db pull",
-      "options": {
-        "cwd": "package/db"
-      }
+    "studio": {
+      "command": "prisma studio --schema=package/db/prisma/schema.prisma"
+    },
+    "format": {
+      "command": "prisma format --schema=package/db/prisma/schema.prisma"
+    },
+    "validate": {
+      "command": "prisma validate --schema=package/db/prisma/schema.prisma"
     },
     "seed": {
-      "command": "prisma db seed",
-      "options": {
-        "cwd": "package/db"
-      }
+      "command": "ts-node --compilerOptions {\\\"module\\\":\\\"CommonJS\\\"} package/db/src/seed/index.ts"
     },
-    "generate": {
-      "command": "prisma generate",
-      "options": {
-        "cwd": "package/db"
-      }
+    "reset": {
+      "command": "prisma migrate reset --force --schema=package/db/prisma/schema.prisma"
     },
     "migrate:dev": {
-      "command": "prisma migrate dev",
-      "options": {
-        "cwd": "package/db"
-      }
+      "command": "prisma migrate dev --schema=package/db/prisma/schema.prisma"
     },
     "migrate:deploy": {
-      "command": "prisma migrate deploy",
-      "options": {
-        "cwd": "package/db"
-      }
+      "command": "prisma migrate deploy --schema=package/db/prisma/schema.prisma"
     },
     "lint": {
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["package/db/**/*.ts", "package/db/package.json"]
+        "lintFilePatterns": ["package/db/**/*.ts"]
       }
     }
   },
-  "tags": []
+  "tags": ["scope:db", "type:data"]
 }
