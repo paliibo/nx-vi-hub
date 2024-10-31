@@ -1,5 +1,7 @@
 import { AnyZodObject, EnumLike, RawCreateParams, ZodTypeAny, z } from "zod";
 
+import { DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE } from "../constants/catalog";
+
 export type SortOrderSchema = z.infer<typeof sortOrderSchema>;
 export const sortOrderSchema = z.enum(["asc", "desc"]);
 
@@ -32,9 +34,14 @@ export const getBaseQuerySchema = <T extends AnyZodObject, C extends [keyof T["s
     .and(paginationQuerySchema);
 };
 
+/**
+ * Query strings arrive as strings, so both fields coerce. `limit` is capped
+ * rather than merely validated: an uncapped `?limit=100000` is an easy way to
+ * make the API read the whole catalog into memory.
+ */
 export const paginationQuerySchema = z.object({
-  limit: z.coerce.number().min(0).default(10),
-  page: z.coerce.number().min(0),
+  limit: z.coerce.number().int().min(1).max(MAX_PAGE_SIZE).default(DEFAULT_PAGE_SIZE),
+  page: z.coerce.number().int().min(1).default(1),
 });
 
 export const uniqueEnumArray = <T extends EnumLike>(enumValues: T) => {
