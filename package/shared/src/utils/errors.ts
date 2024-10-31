@@ -53,6 +53,13 @@ type BaseErrorType<TName extends string, TStatus extends StatusCodes> = Merge<
 >;
 
 export class ForbiddenError extends BaseError.extend("ForbiddenError", STATUS_CODES.FORBIDDEN) {}
+export class UnauthorizedError extends BaseError.extend(
+  "UnauthorizedError",
+  STATUS_CODES.UNAUTHORIZED,
+) {}
+
+export class ConflictError extends BaseError.extend("ConflictError", STATUS_CODES.CONFLICT) {}
+
 
 export class JWTError extends BaseError.extend("JWTError", STATUS_CODES.FORBIDDEN) {}
 
