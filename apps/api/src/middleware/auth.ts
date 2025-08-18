@@ -19,11 +19,24 @@ declare global {
 }
 
 /**
+ * Only the parts of the request these middlewares actually touch.
+ *
+ * ts-rest narrows `req.query` and `req.params` to each route's parsed schema,
+ * so a handler typed against the full Express `Request` is not assignable to
+ * `TsRestRequestHandler` — a parsed `{ page: number }` is not a `ParsedQs`.
+ * Naming only what is read keeps these usable both as global middleware and as
+ * per-route middleware on any route.
+ */
+type AuthAwareRequest = Pick<Request, "cookies" | "headers"> & {
+  user?: AuthenticatedUser;
+};
+
+/**
  * The access token is read from the httpOnly cookie first and from an
  * Authorization header second. The cookie is what the web app uses; the header
  * keeps the API usable from curl and from the OpenAPI page.
  */
-const extractToken = (req: Request): null | string => {
+const extractToken = (req: AuthAwareRequest): null | string => {
   const cookieToken = req.cookies?.[ACCESS_TOKEN_COOKIE];
   if (typeof cookieToken === "string" && cookieToken.length > 0) return cookieToken;
 
@@ -38,7 +51,7 @@ const extractToken = (req: Request): null | string => {
  * Runs on every route: public endpoints still need to know who is asking, since
  * a video's `viewerReaction` depends on it.
  */
-export const attachUser = (req: Request, _res: Response, next: NextFunction) => {
+export const attachUser = (req: AuthAwareRequest, _res: Response, next: NextFunction) => {
   const token = extractToken(req);
   if (!token) return next();
 
@@ -51,7 +64,7 @@ export const attachUser = (req: Request, _res: Response, next: NextFunction) => 
 };
 
 /** Rejects the request unless `attachUser` found a valid token. */
-export const requireAuth = (req: Request, res: Response, next: NextFunction) => {
+export const requireAuth = (req: AuthAwareRequest, res: Response, next: NextFunction) => {
   if (!req.user) {
     res.status(STATUS_CODES.UNAUTHORIZED).json({
       message: "Sign in to continue",
