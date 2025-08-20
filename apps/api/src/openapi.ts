@@ -30,5 +30,8 @@ export const openApiDocument = generateOpenApi(
     },
     servers: [{ description: "Local development", url: "http://localhost:4308" }],
   },
-  { setOperationId: true },
+  // "concatenated-path" derives the id from the full path. Plain `true` uses the
+  // router key, which must then be globally unique — and `create`, `list` and
+  // `update` legitimately appear under videos, channels and comments alike.
+  { setOperationId: "concatenated-path" },
 );
