@@ -2,7 +2,129 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  color: #ffff;
-  background-color: #000;
+/*
+ * Semantic tokens, stored as bare HSL channels so Tailwind can apply an alpha
+ * modifier: `bg-surface/60` compiles to hsl(var(--surface) / 0.6).
+ *
+ * Light is the default and dark is the override, keyed on [data-theme] so the
+ * theme can be applied on the server and never flashes the wrong palette.
+ */
+@layer base {
+  :root {
+    --background: 40 20% 98%;
+    --foreground: 240 10% 8%;
+
+    --surface: 0 0% 100%;
+    --surface-foreground: 240 10% 8%;
+    --surface-raised: 40 14% 96%;
+
+    --muted: 40 12% 93%;
+    --muted-foreground: 240 4% 42%;
+    --subtle: 40 14% 96%;
+
+    /* Lime reads as a highlighter on white, so the light theme takes it several
+       steps deeper to keep white text on it above 4.5:1. */
+    --primary: 82 62% 30%;
+    --primary-foreground: 80 60% 97%;
+
+    --accent: 82 70% 42%;
+    --accent-foreground: 240 10% 8%;
+
+    --danger: 0 72% 46%;
+    --danger-foreground: 0 0% 100%;
+    --success: 152 60% 34%;
+
+    --border: 40 10% 87%;
+    --border-strong: 40 8% 78%;
+    --input: 40 10% 87%;
+    --ring: 82 62% 34%;
+
+    --overlay: 240 10% 8%;
+
+    --radius: 0.75rem;
+
+    --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  }
+
+  [data-theme="dark"] {
+    --background: 240 8% 6%;
+    --foreground: 60 9% 96%;
+
+    --surface: 240 7% 9%;
+    --surface-foreground: 60 9% 96%;
+    --surface-raised: 240 6% 13%;
+
+    --muted: 240 6% 15%;
+    --muted-foreground: 240 5% 62%;
+    --subtle: 240 6% 12%;
+
+    /* On near-black the full-strength lime is legible and is the brand colour,
+       so dark mode uses it undiluted. */
+    --primary: 82 74% 58%;
+    --primary-foreground: 240 12% 8%;
+
+    --accent: 82 74% 58%;
+    --accent-foreground: 240 12% 8%;
+
+    --danger: 0 72% 58%;
+    --danger-foreground: 0 0% 100%;
+    --success: 152 58% 50%;
+
+    --border: 240 5% 18%;
+    --border-strong: 240 5% 26%;
+    --input: 240 5% 20%;
+    --ring: 82 74% 58%;
+
+    --overlay: 240 10% 2%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    /* Prevents layout shifting sideways when a page grows past one viewport. */
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Respect the system setting rather than animating for people who asked us not to. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  ::selection {
+    @apply bg-primary/25;
+  }
+}
+
+@layer components {
+  /* Focus ring used by every interactive element, so keyboard focus looks the
+     same everywhere instead of each component inventing its own. */
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+
+  /* Hides the scrollbar on horizontal shelves while leaving them scrollable —
+     including by keyboard and trackpad. */
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
 }
