@@ -28,7 +28,7 @@ export const Checkbox = forwardRef<ElementRef<typeof Root>, CheckboxProps>(
           {...props}
         >
           <Indicator className={tw("relative flex items-center justify-center text-current")}>
-            <CheckIcon className="stroke-white-1000 absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 *:fill-none" />
+            <CheckIcon className="absolute left-1/2 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 *:fill-none" />
           </Indicator>
         </Root>
       </div>

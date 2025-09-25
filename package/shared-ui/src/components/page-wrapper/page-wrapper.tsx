@@ -31,7 +31,7 @@ export const PageWrapper: FC<PageWrapperProps> = ({
   isShown = true,
 }) => {
   return isShown ? (
-    <div className={tw("flex h-full min-h-full w-full flex-1 flex-col bg-stone-950", className)}>
+    <div className={tw("flex h-full min-h-full w-full flex-1 flex-col bg-background", className)}>
       <Header
         header={header}
         headerCenter={headerCenter}

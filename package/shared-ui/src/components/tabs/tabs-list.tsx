@@ -7,7 +7,7 @@ export const TabsList = forwardRef<ElementRef<typeof List>, ComponentPropsWithou
   ({ className, ...props }, ref) => (
     <List
       className={tw(
-        "inline-flex h-9 items-center justify-center rounded-lg bg-stone-100 p-1 text-stone-500 dark:bg-stone-800 dark:text-stone-400",
+        "inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground",
         className,
       )}
       ref={ref}

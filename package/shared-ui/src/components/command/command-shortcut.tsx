@@ -7,7 +7,7 @@ export const CommandShortcut: FC<HTMLAttributes<HTMLSpanElement>> = ({ className
   return (
     <span
       className={tw(
-        "ml-auto text-xs tracking-widest text-stone-500 dark:text-stone-400",
+        "ml-auto text-xs tracking-widest text-muted-foreground",
         className,
       )}
       {...props}

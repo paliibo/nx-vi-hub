@@ -11,7 +11,7 @@ export const ToastAction = forwardRef<
 >(({ className, ...props }, ref) => (
   <Action
     className={tw(
-      "inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-stone-200 bg-transparent px-3 text-sm font-medium transition-colors hover:bg-stone-100 focus:outline-none focus:ring-1 focus:ring-stone-950 disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-stone-100/40 group-[.destructive]:hover:border-red-500/30 group-[.destructive]:hover:bg-red-500 group-[.destructive]:hover:text-stone-50 group-[.destructive]:focus:ring-red-500 dark:border-stone-800 dark:hover:bg-stone-800 dark:focus:ring-stone-300 dark:group-[.destructive]:border-stone-800/40 dark:group-[.destructive]:hover:border-red-900/30 dark:group-[.destructive]:hover:bg-red-900 dark:group-[.destructive]:hover:text-stone-50 dark:group-[.destructive]:focus:ring-red-900",
+      "inline-flex h-8 shrink-0 items-center justify-center rounded-md border border-border bg-transparent px-3 text-sm font-medium transition-colors hover:bg-muted focus:outline-none focus:ring-1 focus:ring-ring disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-border/40 group-[.destructive]:hover:border-danger/30 group-[.destructive]:hover:bg-danger group-[.destructive]:hover:text-danger-foreground group-[.destructive]:focus:ring-danger",
       className,
     )}
     ref={ref}

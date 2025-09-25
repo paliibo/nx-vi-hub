@@ -8,7 +8,7 @@ export const DialogDescription = forwardRef<
   ComponentPropsWithoutRef<typeof Description>
 >(({ className, ...props }, ref) => (
   <Description
-    className={tw("text-sm text-stone-500 dark:text-stone-400", className)}
+    className={tw("text-sm text-muted-foreground", className)}
     ref={ref}
     {...props}
   />

@@ -4,7 +4,7 @@ import { type VariantProps, cva } from "class-variance-authority";
 import { ButtonHTMLAttributes, forwardRef } from "react";
 
 export const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-stone-950 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-stone-300",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
   {
     defaultVariants: {
       size: "default",
@@ -19,16 +19,16 @@ export const buttonVariants = cva(
       },
       variant: {
         default:
-          "bg-stone-900 text-stone-50 shadow hover:bg-stone-900/90 dark:bg-stone-50 dark:text-stone-900 dark:hover:bg-stone-50/90",
+          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
         destructive:
-          "bg-red-500 text-stone-50 shadow-sm hover:bg-red-500/90 dark:bg-red-900 dark:text-stone-50 dark:hover:bg-red-900/90",
+          "bg-danger text-danger-foreground shadow-sm hover:bg-danger/90",
         ghost:
-          "hover:bg-stone-100 hover:text-stone-900 dark:hover:bg-stone-800 dark:hover:text-stone-50",
-        link: "text-stone-900 underline-offset-4 hover:underline dark:text-stone-50",
+          "hover:bg-muted hover:text-foreground",
+        link: "text-foreground underline-offset-4 hover:underline",
         outline:
-          "border border-stone-200 bg-white shadow-sm hover:bg-stone-100 hover:text-stone-900 dark:border-stone-800 dark:bg-stone-950 dark:hover:bg-stone-800 dark:hover:text-stone-50",
+          "border border-border bg-surface shadow-sm hover:bg-muted hover:text-foreground",
         secondary:
-          "bg-stone-100 text-stone-900 shadow-sm hover:bg-stone-100/80 dark:bg-stone-800 dark:text-stone-50 dark:hover:bg-stone-800/80",
+          "bg-muted text-foreground shadow-sm hover:bg-muted/80",
       },
     },
   },
