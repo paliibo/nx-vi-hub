@@ -14,6 +14,14 @@ export const metadata: Metadata = {
   title: { default: `${APP_NAME} — ${APP_TAGLINE}`, template: `%s · ${APP_NAME}` },
 };
 
+/**
+ * Every route reads the session cookie through the shell, so nothing here can
+ * be prerendered at build time. Saying so explicitly stops Next from attempting
+ * static generation and falling back to the pages-router error component when
+ * cookies() bails out mid-render.
+ */
+export const dynamic = "force-dynamic";
+
 export const viewport: Viewport = {
   themeColor: [
     { color: "#faf9f7", media: "(prefers-color-scheme: light)" },
