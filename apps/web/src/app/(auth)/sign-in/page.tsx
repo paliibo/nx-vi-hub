@@ -1,18 +1,16 @@
-import { webContract } from "@/shared/api";
-import { ClientInferRequest } from "@ts-rest/core";
+import type { Metadata } from "next";
 
-import { api } from "../../../utils/auth";
-import { loggedInProtection } from "../../../utils/auth-protection";
-import { SignIn } from "./sign-in";
+import { redirectIfSignedIn } from "../../../lib/session";
+import { SignInForm } from "./sign-in-form";
 
-export default async function Index() {
-  await loggedInProtection();
+export const metadata: Metadata = { title: "Sign in" };
 
-  const handleSignIn = async (data: ClientInferRequest<typeof webContract.auth.signIn>["body"]) => {
-    "use server";
+export default async function SignInPage({
+  searchParams,
+}: {
+  searchParams: { next?: string };
+}) {
+  await redirectIfSignedIn();
 
-    return await api.auth.signIn({ body: data });
-  };
-
-  return <SignIn handleSignIn={handleSignIn} />;
+  return <SignInForm returnTo={searchParams.next} />;
 }

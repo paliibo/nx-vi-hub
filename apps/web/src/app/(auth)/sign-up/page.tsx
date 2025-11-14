@@ -1,7 +1,11 @@
-import { loggedInProtection } from "../../../utils/auth-protection";
+import type { Metadata } from "next";
 
-export default async function Index() {
-  await loggedInProtection();
+import { redirectIfSignedIn } from "../../../lib/session";
+import { SignUpForm } from "./sign-up-form";
 
-  return;
+export const metadata: Metadata = { title: "Create an account" };
+
+export default async function SignUpPage() {
+  await redirectIfSignedIn();
+  return <SignUpForm />;
 }
