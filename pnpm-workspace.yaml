@@ -13,3 +13,8 @@ allowBuilds:
   core-js-pure: false
   fsevents: false
   nice-napi: false
+  "@parcel/watcher": true
+  unrs-resolver: true
+minimumReleaseAgeExclude:
+  - webpack-cli@7.2.3
+  - webpack@5.110.1
