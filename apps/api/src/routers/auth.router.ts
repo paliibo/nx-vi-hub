@@ -1,11 +1,11 @@
 import { initServer } from "@ts-rest/express";
 
-import { REFRESH_TOKEN_COOKIE, STATUS_CODES } from "@/shared/constants";
 import { webContract } from "@/shared/api";
+import { REFRESH_TOKEN_COOKIE, STATUS_CODES } from "@/shared/constants";
 import { UnauthorizedError } from "@/shared/utils";
 
+import { currentUser, requireAuth } from "../middleware/auth";
 import { clearAuthCookies, setAuthCookies } from "../middleware/cookies";
-import { requireAuth } from "../middleware/auth";
 import { authService } from "../services";
 
 const s = initServer();
@@ -13,7 +13,7 @@ const s = initServer();
 export const authRouter = s.router(webContract.auth, {
   changePassword: {
     handler: async ({ body, req }) => {
-      await authService.changePassword(req.user!.id, body);
+      await authService.changePassword(currentUser(req).id, body);
       return { body: { ok: true as const }, status: STATUS_CODES.SUCCESS };
     },
     middleware: [requireAuth],
@@ -30,7 +30,7 @@ export const authRouter = s.router(webContract.auth, {
 
   me: {
     handler: async ({ req }) => ({
-      body: await authService.getSessionUser(req.user!.id),
+      body: await authService.getSessionUser(currentUser(req).id),
       status: STATUS_CODES.SUCCESS,
     }),
     middleware: [requireAuth],
@@ -65,7 +65,7 @@ export const authRouter = s.router(webContract.auth, {
 
   updateProfile: {
     handler: async ({ body, req }) => ({
-      body: await authService.updateProfile(req.user!.id, body),
+      body: await authService.updateProfile(currentUser(req).id, body),
       status: STATUS_CODES.SUCCESS,
     }),
     middleware: [requireAuth],

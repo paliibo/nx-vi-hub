@@ -1,7 +1,7 @@
 import { initServer } from "@ts-rest/express";
 
-import { STATUS_CODES } from "@/shared/constants";
 import { webContract } from "@/shared/api";
+import { STATUS_CODES } from "@/shared/constants";
 
 import { catalogService } from "../services";
 

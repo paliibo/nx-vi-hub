@@ -1,9 +1,9 @@
 import { initServer } from "@ts-rest/express";
 
-import { STATUS_CODES } from "@/shared/constants";
 import { webContract } from "@/shared/api";
+import { STATUS_CODES } from "@/shared/constants";
 
-import { requireAuth } from "../middleware/auth";
+import { currentUser, requireAuth } from "../middleware/auth";
 import { channelService } from "../services";
 
 const s = initServer();
@@ -11,7 +11,7 @@ const s = initServer();
 export const channelsRouter = s.router(webContract.channels, {
   create: {
     handler: async ({ body, req }) => ({
-      body: await channelService.createChannel(req.user!.id, body),
+      body: await channelService.createChannel(currentUser(req).id, body),
       status: STATUS_CODES.CREATED,
     }),
     middleware: [requireAuth],
@@ -29,7 +29,7 @@ export const channelsRouter = s.router(webContract.channels, {
 
   subscribe: {
     handler: async ({ params, req }) => ({
-      body: await channelService.subscribe(params.handle, req.user!.id),
+      body: await channelService.subscribe(params.handle, currentUser(req).id),
       status: STATUS_CODES.SUCCESS,
     }),
     middleware: [requireAuth],
@@ -37,7 +37,7 @@ export const channelsRouter = s.router(webContract.channels, {
 
   unsubscribe: {
     handler: async ({ params, req }) => ({
-      body: await channelService.unsubscribe(params.handle, req.user!.id),
+      body: await channelService.unsubscribe(params.handle, currentUser(req).id),
       status: STATUS_CODES.SUCCESS,
     }),
     middleware: [requireAuth],
@@ -45,7 +45,7 @@ export const channelsRouter = s.router(webContract.channels, {
 
   update: {
     handler: async ({ body, params, req }) => ({
-      body: await channelService.updateChannel(params.handle, req.user!.id, body),
+      body: await channelService.updateChannel(params.handle, currentUser(req).id, body),
       status: STATUS_CODES.SUCCESS,
     }),
     middleware: [requireAuth],
