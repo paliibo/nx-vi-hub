@@ -1,7 +1,8 @@
 "use client";
-import { tw } from "@/tailwind";
 import { Separator } from "@radix-ui/react-select";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const SelectSeparator = forwardRef<
   ElementRef<typeof Separator>,

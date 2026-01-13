@@ -1,7 +1,8 @@
 "use client";
-import { tw } from "@/tailwind";
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 import * as React from "react";
+
+import { tw } from "@/tailwind";
 
 export const PopoverContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Content>,

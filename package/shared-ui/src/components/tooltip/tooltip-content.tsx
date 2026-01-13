@@ -1,7 +1,8 @@
 "use client";
-import { tw } from "@/tailwind";
 import { Content } from "@radix-ui/react-tooltip";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const TooltipContent = forwardRef<
   ElementRef<typeof Content>,

@@ -1,8 +1,9 @@
 "use client";
 
-import { tw } from "@/tailwind";
 import { Overlay } from "@radix-ui/react-alert-dialog";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const AlertDialogOverlay = forwardRef<
   ElementRef<typeof Overlay>,

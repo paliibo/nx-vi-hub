@@ -1,17 +1,18 @@
+import { forwardRef, TextareaHTMLAttributes } from "react";
+
 import { tw } from "@/tailwind";
-import { TextareaHTMLAttributes, forwardRef } from "react";
 
 import { FormError } from "../form-error";
 import { Label } from "../label";
 
-export type TextAreaProps = {
+export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   containerClassName?: string;
   error?: false | string;
   label?: string;
-} & TextareaHTMLAttributes<HTMLTextAreaElement>;
+};
 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  ({ className, containerClassName, defaultValue = "", error, label, ...props }, ref) => {
+  ({ className, containerClassName, defaultValue: _defaultValue = "", error, label, ...props }, ref) => {
     return (
       <div className={tw("max-w-full", containerClassName)}>
         {!!label && <Label>{label}</Label>}

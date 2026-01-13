@@ -1,14 +1,15 @@
 "use client";
-import { tw } from "@/tailwind";
 import { SubTrigger } from "@radix-ui/react-dropdown-menu";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 
+import { tw } from "@/tailwind";
+
 export const DropdownMenuSubTrigger = forwardRef<
   ElementRef<typeof SubTrigger>,
-  {
+  ComponentPropsWithoutRef<typeof SubTrigger> & {
     inset?: boolean;
-  } & ComponentPropsWithoutRef<typeof SubTrigger>
+  }
 >(({ children, className, inset, ...props }, ref) => (
   <SubTrigger
     className={tw(

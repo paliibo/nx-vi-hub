@@ -1,7 +1,8 @@
-import { tw } from "@/tailwind";
 import { Slot } from "@radix-ui/react-slot";
-import { type VariantProps, cva } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 import { ButtonHTMLAttributes, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const buttonVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
@@ -34,10 +35,10 @@ export const buttonVariants = cva(
   },
 );
 
-export type ButtonProps = {
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
+  VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
-  } &
-  ButtonHTMLAttributes<HTMLButtonElement> & VariantProps<typeof buttonVariants>;
+  };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ asChild = false, className, size, variant, ...props }, ref) => {

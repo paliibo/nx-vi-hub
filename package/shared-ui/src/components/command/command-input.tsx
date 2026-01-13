@@ -1,9 +1,10 @@
 "use client";
 
-import { tw } from "@/tailwind";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { Command as CommandPrimitive } from "cmdk";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const CommandInput = forwardRef<
   ElementRef<typeof CommandPrimitive.Input>,

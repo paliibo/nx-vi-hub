@@ -1,7 +1,8 @@
 "use client";
-import { tw } from "@/tailwind";
 import { ArrowLeftIcon } from "@radix-ui/react-icons";
 import { ComponentProps, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 import { Button } from "../button";
 import { useCarousel } from "./use-carousel";

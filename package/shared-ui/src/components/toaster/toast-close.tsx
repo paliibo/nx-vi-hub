@@ -1,9 +1,10 @@
 "use client";
 
-import { tw } from "@/tailwind";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { Close } from "@radix-ui/react-toast";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const ToastClose = forwardRef<
   ElementRef<typeof Close>,

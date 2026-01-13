@@ -1,15 +1,11 @@
 "use client";
 
-import { tw } from "@/tailwind";
 import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
-import { HTMLAttributes, KeyboardEvent, forwardRef, useCallback, useEffect, useState } from "react";
+import { forwardRef, HTMLAttributes, KeyboardEvent, useCallback, useEffect, useState } from "react";
+
+import { tw } from "@/tailwind";
 
 import { CarouselContext } from "./use-carousel";
-
-type CarouselApi = UseEmblaCarouselType[1];
-type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
-type CarouselOptions = UseCarouselParameters[0];
-type CarouselPlugin = UseCarouselParameters[1];
 
 export type CarouselProps = {
   opts?: CarouselOptions;
@@ -17,6 +13,11 @@ export type CarouselProps = {
   plugins?: CarouselPlugin;
   setApi?: (api: CarouselApi) => void;
 };
+type CarouselApi = UseEmblaCarouselType[1];
+type CarouselOptions = UseCarouselParameters[0];
+type CarouselPlugin = UseCarouselParameters[1];
+
+type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
 
 export const Carousel = forwardRef<HTMLDivElement, CarouselProps & HTMLAttributes<HTMLDivElement>>(
   ({ children, className, opts, orientation = "horizontal", plugins, setApi, ...props }, ref) => {

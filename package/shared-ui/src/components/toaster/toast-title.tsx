@@ -1,8 +1,9 @@
 "use client";
 
-import { tw } from "@/tailwind";
 import { Title } from "@radix-ui/react-toast";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const ToastTitle = forwardRef<
   ElementRef<typeof Title>,

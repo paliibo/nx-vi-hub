@@ -1,8 +1,9 @@
 "use client";
 
-import { tw } from "@/tailwind";
 import { Content } from "@radix-ui/react-accordion";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const AccordionContent = forwardRef<
   ElementRef<typeof Content>,

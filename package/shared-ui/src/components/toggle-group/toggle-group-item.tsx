@@ -1,9 +1,10 @@
 "use client";
 
-import { tw } from "@/tailwind";
 import { Item } from "@radix-ui/react-toggle-group";
 import { VariantProps } from "class-variance-authority";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef, useContext } from "react";
+
+import { tw } from "@/tailwind";
 
 import { toggleVariants } from "../toggle/toggle";
 import { ToggleGroupContext } from "./toggle-group-context";

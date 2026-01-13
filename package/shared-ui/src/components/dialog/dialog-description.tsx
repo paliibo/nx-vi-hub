@@ -1,7 +1,8 @@
 "use client";
-import { tw } from "@/tailwind";
 import { Description } from "@radix-ui/react-dialog";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const DialogDescription = forwardRef<
   ElementRef<typeof Description>,

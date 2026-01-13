@@ -1,7 +1,8 @@
 "use client";
-import { tw } from "@/tailwind";
 import { Label } from "@radix-ui/react-select";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const SelectLabel = forwardRef<
   ElementRef<typeof Label>,

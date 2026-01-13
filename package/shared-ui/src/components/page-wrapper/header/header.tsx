@@ -1,5 +1,6 @@
+import { memo, ReactNode } from "react";
+
 import { tw } from "@/tailwind";
-import { ReactNode, memo } from "react";
 
 import {
   HeaderCenter,
@@ -10,13 +11,13 @@ import {
   HeaderRightProps,
 } from "./header-parts";
 
-export type HeaderProps = {
+export type HeaderProps = HeaderCenterProps & HeaderLeftProps &
+  HeaderRightProps &
+  {
   header?: ReactNode;
   headerClassName?: string;
   isHeaderShown?: boolean;
-} & HeaderCenterProps &
-  HeaderLeftProps &
-  HeaderRightProps;
+};
 
 export const Header = memo(
   ({

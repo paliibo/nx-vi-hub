@@ -1,9 +1,10 @@
 "use client";
 
-import { tw } from "@/tailwind";
 import { Header, Trigger } from "@radix-ui/react-accordion";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const AccordionTrigger = forwardRef<
   ElementRef<typeof Trigger>,

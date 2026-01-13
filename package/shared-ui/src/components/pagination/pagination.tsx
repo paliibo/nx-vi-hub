@@ -1,5 +1,6 @@
-import { tw } from "@/tailwind";
 import { ComponentProps, FC } from "react";
+
+import { tw } from "@/tailwind";
 
 export const Pagination: FC<ComponentProps<"nav">> = ({ className, ...props }) => (
   <nav

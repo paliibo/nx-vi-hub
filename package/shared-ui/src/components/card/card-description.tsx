@@ -1,5 +1,6 @@
+import { forwardRef, HTMLAttributes } from "react";
+
 import { tw } from "@/tailwind";
-import { HTMLAttributes, forwardRef } from "react";
 
 export const CardDescription = forwardRef<
   HTMLParagraphElement,

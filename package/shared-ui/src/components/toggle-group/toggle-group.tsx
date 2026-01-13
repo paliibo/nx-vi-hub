@@ -1,21 +1,22 @@
 "use client";
 
-import { tw } from "@/tailwind";
 import { Root } from "@radix-ui/react-toggle-group";
 import { VariantProps } from "class-variance-authority";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 import { FormError } from "../form-error";
 import { Label } from "../label";
 import { toggleVariants } from "../toggle/toggle";
 import { ToggleGroupContext } from "./toggle-group-context";
 
-export type ToggleGroupProps = {
+export type ToggleGroupProps = ComponentPropsWithoutRef<typeof Root> &
+  VariantProps<typeof toggleVariants> & {
     containerClassName?: string;
     error?: false | string;
     label?: string;
-  } &
-  ComponentPropsWithoutRef<typeof Root> & VariantProps<typeof toggleVariants>;
+  };
 export type ToggleGroupRef = ElementRef<typeof Root>;
 
 export const ToggleGroup = forwardRef<ToggleGroupRef, ToggleGroupProps>(
