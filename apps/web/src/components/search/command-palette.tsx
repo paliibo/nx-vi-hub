@@ -1,16 +1,5 @@
 "use client";
 
-import type { SearchSuggestionsResponseSchema } from "@/shared/validation";
-
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/shared-ui/components/command";
-import { Dialog, DialogContent } from "@/shared-ui/components/dialog";
 import {
   HomeIcon,
   LayersIcon,
@@ -22,6 +11,18 @@ import {
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+
+import type { SearchSuggestionsResponseSchema } from "@/shared/validation";
+
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/shared-ui/components/command";
+import { Dialog, DialogContent } from "@/shared-ui/components/dialog";
 
 import { useDebouncedValue } from "../../hooks/use-debounced-value";
 import { api } from "../../lib/api-client";
@@ -41,7 +42,8 @@ export const CommandPalette = () => {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchSuggestionsResponseSchema>(EMPTY);
-  const [loading, setLoading] = useState(false);
+  /** The term the results in state belong to. Drives the loading indicator. */
+  const [loadedTerm, setLoadedTerm] = useState("");
 
   const debouncedQuery = useDebouncedValue(query, 180);
 
@@ -57,20 +59,21 @@ export const CommandPalette = () => {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
+  const term = query.trim();
+  const debouncedTerm = debouncedQuery.trim();
+
   useEffect(() => {
-    const term = debouncedQuery.trim();
-    if (!term) {
-      setResults(EMPTY);
-      return;
-    }
+    // Nothing to search for. Returning early rather than clearing state keeps
+    // the effect free of a synchronous setState, which would cost a second
+    // render pass on every keystroke that empties the field.
+    if (!debouncedTerm) return;
 
     // Guards against an earlier, slower request landing after a later one and
     // overwriting fresher results.
     let cancelled = false;
-    setLoading(true);
 
     api.catalog
-      .suggest({ query: { limit: 6, q: term } })
+      .suggest({ query: { limit: 6, q: debouncedTerm } })
       .then(result => {
         if (cancelled) return;
         setResults(result.status === 200 ? result.body : EMPTY);
@@ -79,13 +82,19 @@ export const CommandPalette = () => {
         if (!cancelled) setResults(EMPTY);
       })
       .finally(() => {
-        if (!cancelled) setLoading(false);
+        if (!cancelled) setLoadedTerm(debouncedTerm);
       });
 
     return () => {
       cancelled = true;
     };
-  }, [debouncedQuery]);
+  }, [debouncedTerm]);
+
+  // Both derived rather than stored. Keeping them out of state means the effect
+  // contains no synchronous setState, so a keystroke costs one render instead of
+  // three — and "loading" cannot fall out of step with the results it describes.
+  const visible = debouncedTerm ? results : EMPTY;
+  const loading = Boolean(debouncedTerm) && loadedTerm !== debouncedTerm;
 
   const go = useCallback(
     (href: string) => {
@@ -95,8 +104,6 @@ export const CommandPalette = () => {
     },
     [router],
   );
-
-  const term = query.trim();
 
   return (
     <Dialog onOpenChange={setOpen} open={open}>
@@ -112,13 +119,13 @@ export const CommandPalette = () => {
           />
 
           <CommandList className="max-h-[22rem]">
-            {term && !loading && results.videos.length === 0 && results.channels.length === 0 && (
+            {term && !loading && visible.videos.length === 0 && visible.channels.length === 0 && (
               <CommandEmpty>No matches for “{term}”.</CommandEmpty>
             )}
 
-            {results.videos.length > 0 && (
+            {visible.videos.length > 0 && (
               <CommandGroup heading="Videos">
-                {results.videos.map(video => (
+                {visible.videos.map(video => (
                   <CommandItem
                     key={video.id}
                     onSelect={() => go(`/watch/${video.slug}`)}
@@ -134,9 +141,9 @@ export const CommandPalette = () => {
               </CommandGroup>
             )}
 
-            {results.channels.length > 0 && (
+            {visible.channels.length > 0 && (
               <CommandGroup heading="Channels">
-                {results.channels.map(channel => (
+                {visible.channels.map(channel => (
                   <CommandItem
                     key={channel.id}
                     onSelect={() => go(`/channel/${channel.handle}`)}
