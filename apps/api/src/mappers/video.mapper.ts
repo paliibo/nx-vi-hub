@@ -1,11 +1,11 @@
+import { Prisma } from "@nx-vi-hub/db/server";
+
 import type {
   ChannelSummarySchema,
   VideoDetailSchema,
   VideoSummarySchema,
 } from "@/shared/types/db";
 import type { ReactionType } from "@/shared/types/enums";
-
-import { Prisma } from "@nx-vi-hub/db/server";
 
 /**
  * The columns a video card needs, and nothing else. Selecting explicitly means
@@ -69,7 +69,7 @@ export type ViewerContext = {
   dislikeCount: number;
   isSubscribed: boolean | null;
   resumeAtSeconds: number;
-  viewerReaction: ReactionType | null;
+  viewerReaction: null | ReactionType;
 };
 
 export const toVideoDetail = (row: VideoDetailRow, viewer: ViewerContext): VideoDetailSchema => ({

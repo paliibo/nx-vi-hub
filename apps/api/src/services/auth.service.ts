@@ -1,3 +1,5 @@
+import { prisma } from "@nx-vi-hub/db/server";
+
 import type {
   ChangePasswordBodySchema,
   SignInBodySchema,
@@ -6,7 +8,6 @@ import type {
 } from "@/shared/validation";
 
 import { BadRequestError, ConflictError, NotFoundError, UnauthorizedError } from "@/shared/utils";
-import { prisma } from "@nx-vi-hub/db/server";
 
 import { sessionUserSelect, toSessionUser } from "../mappers";
 import { hashPassword, verifyPassword } from "../utils/password";

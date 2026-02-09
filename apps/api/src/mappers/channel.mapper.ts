@@ -1,6 +1,6 @@
-import type { ChannelSchema, PublicUserSchema, SessionUserSchema } from "@/shared/types/db";
-
 import { Prisma } from "@nx-vi-hub/db/server";
+
+import type { ChannelSchema, PublicUserSchema, SessionUserSchema } from "@/shared/types/db";
 
 export const channelSelect = {
   _count: { select: { subscriptions: true, videos: true } },

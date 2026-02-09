@@ -1,11 +1,12 @@
+import { prisma } from "@nx-vi-hub/db/server";
+
 import type {
   CreateChannelBodySchema,
   ListChannelVideosQuerySchema,
   UpdateChannelBodySchema,
 } from "@/shared/validation";
 
-import { ConflictError, ForbiddenError, NotFoundError, getPaginatedResponse } from "@/shared/utils";
-import { prisma } from "@nx-vi-hub/db/server";
+import { ConflictError, ForbiddenError, getPaginatedResponse, NotFoundError } from "@/shared/utils";
 
 import { channelSelect, toChannel, toVideoSummary, videoSummarySelect } from "../mappers";
 

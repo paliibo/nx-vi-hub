@@ -1,7 +1,8 @@
+import { prisma } from "@nx-vi-hub/db/server";
+
 import type { SearchSuggestionsQuerySchema } from "@/shared/validation";
 
 import { RESUME_MIN_SECONDS } from "@/shared/constants";
-import { prisma } from "@nx-vi-hub/db/server";
 
 import { toVideoSummary, videoSummarySelect } from "../mappers";
 

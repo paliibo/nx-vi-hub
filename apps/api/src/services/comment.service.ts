@@ -1,11 +1,12 @@
+import { prisma } from "@nx-vi-hub/db/server";
+
 import type {
   CreateCommentBodySchema,
   ListCommentsQuerySchema,
   UpdateCommentBodySchema,
 } from "@/shared/validation";
 
-import { BadRequestError, ForbiddenError, NotFoundError, getPaginatedResponse } from "@/shared/utils";
-import { prisma } from "@nx-vi-hub/db/server";
+import { BadRequestError, ForbiddenError, getPaginatedResponse, NotFoundError } from "@/shared/utils";
 
 import { commentSelect, threadSelect, toComment, toCommentThread } from "../mappers";
 
