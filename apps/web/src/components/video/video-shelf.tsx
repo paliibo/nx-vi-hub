@@ -1,7 +1,7 @@
-import type { VideoSummarySchema } from "@/shared/types/db";
-
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
+
+import type { VideoSummarySchema } from "@/shared/types/db";
 
 import { VideoCard } from "./video-card";
 

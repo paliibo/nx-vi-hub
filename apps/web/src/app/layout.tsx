@@ -1,5 +1,6 @@
-import type { ListCategoriesResponseSchema } from "@/shared/validation";
 import type { Metadata, Viewport } from "next";
+
+import type { ListCategoriesResponseSchema } from "@/shared/validation";
 
 import { AppShell } from "../components/layout";
 import { ThemeProvider } from "../components/theme";

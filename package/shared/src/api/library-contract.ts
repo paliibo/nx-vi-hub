@@ -2,6 +2,7 @@ import { z } from "zod";
 
 import { STATUS_CODES } from "../constants";
 import { ContractInstance } from "../types/general";
+import { paginationQuerySchema } from "../utils/validation";
 import {
   addPlaylistItemBodySchema,
   createPlaylistBodySchema,
@@ -16,7 +17,6 @@ import {
   reorderPlaylistBodySchema,
   updatePlaylistBodySchema,
 } from "../validation";
-import { paginationQuerySchema } from "../utils/validation";
 import { authErrors, authLookupErrors, conflictErrors } from "./responses";
 
 const ok = z.object({ ok: z.literal(true) });

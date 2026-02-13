@@ -1,14 +1,15 @@
 "use client";
 
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
 import type { SignInBodySchema } from "@/shared/validation";
 
 import { Button } from "@/shared-ui/components/button";
 import { useForm, zodResolver } from "@/shared-ui/components/form";
 import { FormInput } from "@/shared-ui/components/input";
 import { signInBodySchema } from "@/shared/validation";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 import { Logo } from "../../../components/brand";
 import { api } from "../../../lib/api-client";
@@ -40,7 +41,7 @@ export const SignInForm = ({ returnTo }: { returnTo?: string }) => {
       return;
     }
 
-    const body = result.body as { message?: string } | null;
+    const body = result.body as null | { message?: string };
     setError(body?.message ?? "Could not sign you in. Please try again.");
   });
 

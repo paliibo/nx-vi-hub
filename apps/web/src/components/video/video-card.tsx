@@ -1,8 +1,10 @@
+import type { CSSProperties } from "react";
+
+import Link from "next/link";
+
 import type { VideoSummarySchema } from "@/shared/types/db";
 
 import { tw } from "@/tailwind";
-import Link from "next/link";
-import type { CSSProperties } from "react";
 
 import { describeDuration, formatDuration, formatRelativeTime, formatViews } from "../../lib/format";
 import { VideoPoster } from "./video-poster";

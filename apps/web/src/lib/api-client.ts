@@ -1,7 +1,8 @@
 "use client";
 
-import { webContract } from "@/shared/api";
 import { initClient } from "@ts-rest/core";
+
+import { webContract } from "@/shared/api";
 
 import { BROWSER_API_BASE_URL } from "./config";
 
@@ -24,6 +25,6 @@ export const api = initClient(webContract, {
 export const unwrap = <TBody>(result: { body: unknown; status: number }): TBody => {
   if (result.status >= 200 && result.status < 300) return result.body as TBody;
 
-  const body = result.body as { message?: string } | null;
+  const body = result.body as null | { message?: string };
   throw new Error(body?.message ?? `Request failed with status ${result.status}`);
 };

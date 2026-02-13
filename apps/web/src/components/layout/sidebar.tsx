@@ -1,10 +1,11 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 import type { SessionUserSchema } from "@/shared/types/db";
 
 import { tw } from "@/tailwind";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 import { LIBRARY_LINKS, type NavLink, PRIMARY_LINKS, STUDIO_LINKS } from "./nav-links";
 
