@@ -1,11 +1,12 @@
+import { memo, ReactElement, ReactNode } from "react";
+
 import { tw } from "@/tailwind";
-import { ReactElement, ReactNode, memo } from "react";
 
 export type HeaderLeftProps = {
   headerLeft?: ReactNode;
 };
 
-export const HeaderLeft = memo(({ headerLeft }: HeaderLeftProps): ReactElement | null => {
+export const HeaderLeft = memo(({ headerLeft }: HeaderLeftProps): null | ReactElement => {
   return <div className={tw("mobile:w-1/3 flex items-center")}>{headerLeft}</div>;
 });
 HeaderLeft.displayName = "HeaderLeft";
@@ -21,7 +22,7 @@ export const HeaderCenter = memo(
     headerCenter,
     headerCenterClassName,
     isHeaderCenterShown,
-  }: HeaderCenterProps): ReactElement | null => {
+  }: HeaderCenterProps): null | ReactElement => {
     return isHeaderCenterShown ? (
       <div
         className={tw(
@@ -42,7 +43,7 @@ export type HeaderRightProps = {
 };
 
 export const HeaderRight = memo(
-  ({ headerRight, isHeaderRightShown }: HeaderRightProps): ReactElement | null => {
+  ({ headerRight, isHeaderRightShown }: HeaderRightProps): null | ReactElement => {
     return isHeaderRightShown ? (
       <div className={tw("mobile:w-1/3 flex items-center justify-end")}>{headerRight}</div>
     ) : null;

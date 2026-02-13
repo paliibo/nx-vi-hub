@@ -1,8 +1,9 @@
 "use client";
 
-import { tw } from "@/tailwind";
 import { Corner, Root, Viewport } from "@radix-ui/react-scroll-area";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 import { ScrollBar } from "./scroll-bar";
 

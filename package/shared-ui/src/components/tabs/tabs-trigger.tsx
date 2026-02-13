@@ -1,7 +1,8 @@
 "use client";
-import { tw } from "@/tailwind";
 import { Trigger } from "@radix-ui/react-tabs";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const TabsTrigger = forwardRef<
   ElementRef<typeof Trigger>,

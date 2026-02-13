@@ -1,17 +1,18 @@
+import { forwardRef, InputHTMLAttributes } from "react";
+
 import { tw } from "@/tailwind";
-import { InputHTMLAttributes, forwardRef } from "react";
 
 import { FormError } from "../form-error";
 import { Label } from "../label";
 
-export type InputProps = {
+export type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   containerClassName?: string;
   error?: false | string;
   label?: string;
-} & InputHTMLAttributes<HTMLInputElement>;
+};
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, containerClassName, defaultValue = "", error, label, type, ...props }, ref) => {
+  ({ className, containerClassName, defaultValue: _defaultValue = "", error, label, type, ...props }, ref) => {
     return (
       <div className={tw("max-w-full", containerClassName)}>
         {!!label && <Label>{label}</Label>}

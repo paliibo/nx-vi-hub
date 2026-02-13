@@ -1,7 +1,8 @@
 "use client";
-import { tw } from "@/tailwind";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const DropdownMenuSeparator = forwardRef<
   ElementRef<typeof Separator>,

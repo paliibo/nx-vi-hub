@@ -1,4 +1,4 @@
-import { AnyZodObject, EnumLike, RawCreateParams, ZodTypeAny, z } from "zod";
+import { AnyZodObject, EnumLike, RawCreateParams, z, ZodTypeAny } from "zod";
 
 import { DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE } from "../constants/catalog";
 

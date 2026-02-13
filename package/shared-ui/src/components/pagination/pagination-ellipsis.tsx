@@ -1,6 +1,7 @@
-import { tw } from "@/tailwind";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { ComponentProps, FC } from "react";
+
+import { tw } from "@/tailwind";
 
 export const PaginationEllipsis: FC<ComponentProps<"span">> = ({ className, ...props }) => (
   <span

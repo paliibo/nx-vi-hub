@@ -1,5 +1,6 @@
-import { tw } from "@/tailwind";
 import Link from "next/link";
+
+import { tw } from "@/tailwind";
 
 type LogoProps = {
   className?: string;

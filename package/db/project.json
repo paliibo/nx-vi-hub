@@ -4,6 +4,7 @@
   "sourceRoot": "package/db/src",
   "projectType": "library",
   "// note": "Targets run from the workspace root so Prisma picks up the single root .env.",
+  "tags": ["scope:db", "type:data"],
   "targets": {
     "generate": {
       "command": "prisma generate --schema=package/db/prisma/schema.prisma"
@@ -34,18 +35,10 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "package/db/**/*.ts"
-        ]
+        "lintFilePatterns": ["package/db/**/*.ts"]
       }
     }
-  },
-  "tags": [
-    "scope:db",
-    "type:data"
-  ]
+  }
 }

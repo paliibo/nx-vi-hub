@@ -1,5 +1,6 @@
-import { tw } from "@/tailwind";
 import { type ReactNode } from "react";
+
+import { tw } from "@/tailwind";
 
 type PageHeaderProps = {
   actions?: ReactNode;

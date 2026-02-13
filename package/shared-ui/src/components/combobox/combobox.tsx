@@ -1,9 +1,10 @@
 "use client";
 
-import { ArrayElement } from "@/shared/types";
-import { tw } from "@/tailwind";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
+
+import { ArrayElement } from "@/shared/types";
+import { tw } from "@/tailwind";
 
 import { Button } from "../button";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "../command";

@@ -1,8 +1,8 @@
 import "server-only";
-
-import { webContract } from "@/shared/api";
 import { initClient } from "@ts-rest/core";
 import { cookies } from "next/headers";
+
+import { webContract } from "@/shared/api";
 
 import { SERVER_API_BASE_URL } from "./config";
 
@@ -16,19 +16,19 @@ import { SERVER_API_BASE_URL } from "./config";
  */
 export const serverApi = initClient(webContract, {
   api: async ({ body, fetchOptions, headers, method, path }) => {
-    const cookieHeader = cookies().toString();
+    const cookieHeader = (await cookies()).toString();
 
     const response = await fetch(path, {
       ...fetchOptions,
       body,
+      // The catalog changes as people publish and comment, so a stale render is
+      // worse than an extra request.
+      cache: "no-store",
       headers: {
         ...headers,
         ...(cookieHeader ? { cookie: cookieHeader } : {}),
       },
       method,
-      // The catalog changes as people publish and comment, so a stale render is
-      // worse than an extra request.
-      cache: "no-store",
     });
 
     const contentType = response.headers.get("content-type") ?? "";
@@ -46,5 +46,5 @@ export const serverApi = initClient(webContract, {
  * Returns the success body, or null for any non-2xx. Pages use this when a
  * missing or forbidden resource should render an empty state rather than crash.
  */
-export const okOrNull = <TBody>(result: { body: unknown; status: number }): TBody | null =>
+export const okOrNull = <TBody>(result: { body: unknown; status: number }): null | TBody =>
   result.status >= 200 && result.status < 300 ? (result.body as TBody) : null;

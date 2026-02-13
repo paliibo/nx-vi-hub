@@ -1,3 +1,5 @@
+import { Prisma, prisma } from "@nx-vi-hub/db/server";
+
 import type {
   CreateVideoBodySchema,
   ListVideosQuerySchema,
@@ -7,8 +9,7 @@ import type {
 } from "@/shared/validation";
 
 import { COMPLETION_THRESHOLD, VIDEO_SORT, VideoSort } from "@/shared/constants";
-import { ForbiddenError, NotFoundError, getPaginatedResponse } from "@/shared/utils";
-import { Prisma, prisma } from "@nx-vi-hub/db/server";
+import { ForbiddenError, getPaginatedResponse, NotFoundError } from "@/shared/utils";
 
 import { toVideoDetail, toVideoSummary, videoDetailSelect, videoSummarySelect } from "../mappers";
 import { uniqueSlug } from "../utils/slug";
@@ -139,12 +140,12 @@ export const getRelatedVideos = async (slug: string, limit = 8) => {
     take: limit,
     where: {
       id: { not: video.id },
-      visibility: "PUBLIC",
       OR: [
         { categoryId: video.categoryId },
         { tags: { some: { tagId: { in: tagIds } } } },
         { channelId: video.channelId },
       ],
+      visibility: "PUBLIC",
     },
   });
 

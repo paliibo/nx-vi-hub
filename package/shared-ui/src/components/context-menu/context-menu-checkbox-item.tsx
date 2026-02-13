@@ -1,8 +1,9 @@
 "use client";
-import { tw } from "@/tailwind";
 import { CheckboxItem, ItemIndicator } from "@radix-ui/react-context-menu";
 import { CheckIcon } from "@radix-ui/react-icons";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const ContextMenuCheckboxItem = forwardRef<
   ElementRef<typeof CheckboxItem>,

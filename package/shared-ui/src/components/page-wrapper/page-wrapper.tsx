@@ -1,16 +1,17 @@
-import { tw } from "@/tailwind";
 import { FC, ReactNode } from "react";
+
+import { tw } from "@/tailwind";
 
 import { Footer, FooterProps } from "./footer/footer";
 import { Header, HeaderProps } from "./header/header";
 
-export type PageWrapperProps = {
+export type PageWrapperProps = FooterProps & HeaderProps &
+  {
   children: ReactNode;
   className?: string;
   contentWrapperClassName?: string;
   isShown?: boolean;
-} & FooterProps &
-  HeaderProps;
+};
 
 export const PageWrapper: FC<PageWrapperProps> = ({
   children,

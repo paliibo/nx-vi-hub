@@ -6,19 +6,12 @@ import {
   FieldValues,
   SetValueConfig,
   UseFormHandleSubmit,
+  useForm as useOriginalForm,
   UseFormProps as UseOriginalFormProps,
   UseFormReturn as UseOriginalFormReturn,
-  useForm as useOriginalForm,
 } from "react-hook-form";
 
 export type SetTouchedConfig = Omit<SetValueConfig, "shouldTouch">;
-
-export type UseFormSetTouched<TFieldValues extends FieldValues> = <
-  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->(
-  name: TFieldName,
-  options?: SetTouchedConfig,
-) => void;
 
 export interface UseFormProps<TFieldValues extends FieldValues = FieldValues, TContext = unknown>
   extends UseOriginalFormProps<TFieldValues, TContext> {
@@ -42,6 +35,13 @@ export interface UseFormReturn<TFieldValues extends FieldValues = FieldValues, T
    */
   setTouched: UseFormSetTouched<TFieldValues>;
 }
+
+export type UseFormSetTouched<TFieldValues extends FieldValues> = <
+  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+>(
+  name: TFieldName,
+  options?: SetTouchedConfig,
+) => void;
 
 export function useForm<TFieldValues extends FieldValues = FieldValues, TContext = unknown>({
   mode = "onTouched",

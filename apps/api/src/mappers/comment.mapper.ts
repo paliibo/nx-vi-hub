@@ -1,6 +1,6 @@
-import type { CommentSchema, CommentThreadSchema } from "@/shared/types/db";
-
 import { Prisma } from "@nx-vi-hub/db/server";
+
+import type { CommentSchema, CommentThreadSchema } from "@/shared/types/db";
 
 import { publicUserSelect } from "./channel.mapper";
 

@@ -1,8 +1,9 @@
 "use client";
 
-import { tw } from "@/tailwind";
 import { Action } from "@radix-ui/react-toast";
-import { ComponentPropsWithoutRef, ElementRef, ReactElement, forwardRef } from "react";
+import { ComponentPropsWithoutRef, ElementRef, forwardRef, ReactElement } from "react";
+
+import { tw } from "@/tailwind";
 
 export type ToastActionElement = ReactElement<typeof ToastAction>;
 export const ToastAction = forwardRef<

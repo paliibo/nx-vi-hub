@@ -1,8 +1,9 @@
 "use client";
 
-import { tw } from "@/tailwind";
 import { Title } from "@radix-ui/react-alert-dialog";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const AlertDialogTitle = forwardRef<
   ElementRef<typeof Title>,

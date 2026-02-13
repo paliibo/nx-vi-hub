@@ -1,7 +1,7 @@
-import type { DiscoverResponseSchema } from "@/shared/validation";
-
 import { PlayIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
+
+import type { DiscoverResponseSchema } from "@/shared/validation";
 
 import { EmptyState } from "../components/ui";
 import { VideoPoster, VideoShelf } from "../components/video";

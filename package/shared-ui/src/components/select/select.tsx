@@ -1,17 +1,18 @@
 "use client";
 
-import { tw } from "@/tailwind";
 import { SelectProps as RadixSelectProps, Root } from "@radix-ui/react-select";
 import { FC } from "react";
+
+import { tw } from "@/tailwind";
 
 import { FormError } from "../form-error";
 import { Label } from "../label";
 
-export type SelectProps = {
+export type SelectProps = RadixSelectProps & {
   containerClassName?: string;
   error?: false | string;
   label?: string;
-} & RadixSelectProps;
+};
 
 export const Select: FC<SelectProps> = ({
   children,

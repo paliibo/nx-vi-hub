@@ -1,3 +1,6 @@
+import { prisma } from "@nx-vi-hub/db/server";
+import { z } from "zod";
+
 import type {
   AddPlaylistItemBodySchema,
   CreatePlaylistBodySchema,
@@ -7,8 +10,8 @@ import type {
 } from "@/shared/validation";
 
 import { SYSTEM_PLAYLIST, SYSTEM_PLAYLIST_TITLES, SystemPlaylist } from "@/shared/constants";
-import { BadRequestError, ForbiddenError, NotFoundError, getPaginatedResponse } from "@/shared/utils";
-import { prisma } from "@nx-vi-hub/db/server";
+import { BadRequestError, ForbiddenError, getPaginatedResponse, NotFoundError } from "@/shared/utils";
+import { paginationQuerySchema } from "@/shared/utils/validation";
 
 import {
   playlistSelect,
@@ -19,8 +22,6 @@ import {
   toWatchHistoryEntry,
   videoSummarySelect,
 } from "../mappers";
-import { paginationQuerySchema } from "@/shared/utils/validation";
-import { z } from "zod";
 
 // --- playlists -------------------------------------------------------------
 

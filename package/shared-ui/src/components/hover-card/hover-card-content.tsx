@@ -1,7 +1,8 @@
 "use client";
-import { tw } from "@/tailwind";
 import { Content } from "@radix-ui/react-hover-card";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const HoverCardContent = forwardRef<
   ElementRef<typeof Content>,

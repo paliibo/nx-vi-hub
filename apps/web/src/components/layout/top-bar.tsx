@@ -1,10 +1,10 @@
 "use client";
 
-import type { SessionUserSchema } from "@/shared/types/db";
-
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+
+import type { SessionUserSchema } from "@/shared/types/db";
 
 import { Logo } from "../brand";
 import { ThemeToggle } from "../theme";

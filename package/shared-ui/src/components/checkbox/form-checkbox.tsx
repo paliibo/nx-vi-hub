@@ -6,14 +6,14 @@ import { Checkbox, CheckboxProps } from "./checkbox";
 export type FormCheckboxProps<
   TFieldValues extends FieldValues,
   TPath extends FieldPathByValue<TFieldValues, boolean | null | number | string | undefined>,
-> = {
+> = Omit<
+    CheckboxProps,
+    "defaultValue" | "onBlur" | "onChange" | "value"
+  > & { containerClassName?: string } & {
   control: Control<TFieldValues>;
   defaultValue?: PathValue<TFieldValues, TPath>;
   name: TPath;
-} & { containerClassName?: string } & Omit<
-    CheckboxProps,
-    "defaultValue" | "onBlur" | "onChange" | "value"
-  >;
+};
 
 export const FormCheckbox = <
   TFieldValues extends FieldValues,
@@ -23,7 +23,7 @@ export const FormCheckbox = <
   defaultValue,
   name,
   ...props
-}: FormCheckboxProps<TFieldValues, TPath>): ReactElement | null => {
+}: FormCheckboxProps<TFieldValues, TPath>): null | ReactElement => {
   const { field, fieldState } = useController({
     control,
     defaultValue,

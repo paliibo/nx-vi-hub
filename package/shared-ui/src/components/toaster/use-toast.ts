@@ -8,28 +8,25 @@ import { ToastActionElement } from "./toast-action";
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1000000;
 
-type ToasterToast = {
+/**
+ * Only ever read as a type (via `ActionType` below); the runtime object exists
+ * so the literal strings are written once. Declared as a type to say so.
+ */
+type actionTypes = {
+  ADD_TOAST: "ADD_TOAST";
+  DISMISS_TOAST: "DISMISS_TOAST";
+  REMOVE_TOAST: "REMOVE_TOAST";
+  UPDATE_TOAST: "UPDATE_TOAST";
+};
+
+type ToasterToast = ToastProps & {
   action?: ToastActionElement;
   description?: ReactNode;
   id: string;
   title?: ReactNode;
-} & ToastProps;
-
-const actionTypes = {
-  ADD_TOAST: "ADD_TOAST",
-  DISMISS_TOAST: "DISMISS_TOAST",
-  REMOVE_TOAST: "REMOVE_TOAST",
-  UPDATE_TOAST: "UPDATE_TOAST",
-} as const;
+};
 
 let count = 0;
-
-function genId() {
-  count = (count + 1) % Number.MAX_SAFE_INTEGER;
-  return count.toString();
-}
-
-type ActionType = typeof actionTypes;
 
 type Action =
   | {
@@ -49,8 +46,15 @@ type Action =
       type: ActionType["REMOVE_TOAST"];
     };
 
+type ActionType = actionTypes;
+
 interface State {
   toasts: ToasterToast[];
+}
+
+function genId() {
+  count = (count + 1) % Number.MAX_SAFE_INTEGER;
+  return count.toString();
 }
 
 const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>();
@@ -79,12 +83,6 @@ export const reducer = (state: State, action: Action): State => {
         toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),
       };
 
-    case "UPDATE_TOAST":
-      return {
-        ...state,
-        toasts: state.toasts.map(t => (t.id === action.toast.id ? { ...t, ...action.toast } : t)),
-      };
-
     case "DISMISS_TOAST": {
       const { toastId } = action;
 
@@ -110,6 +108,7 @@ export const reducer = (state: State, action: Action): State => {
         ),
       };
     }
+
     case "REMOVE_TOAST":
       if (action.toastId === undefined) {
         return {
@@ -121,6 +120,11 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         toasts: state.toasts.filter(t => t.id !== action.toastId),
       };
+    case "UPDATE_TOAST":
+      return {
+        ...state,
+        toasts: state.toasts.map(t => (t.id === action.toast.id ? { ...t, ...action.toast } : t)),
+      };
   }
 };
 
@@ -128,14 +132,14 @@ const listeners: Array<(state: State) => void> = [];
 
 let memoryState: State = { toasts: [] };
 
+type Toast = Omit<ToasterToast, "id">;
+
 function dispatch(action: Action) {
   memoryState = reducer(memoryState, action);
   listeners.forEach(listener => {
     listener(memoryState);
   });
 }
-
-type Toast = Omit<ToasterToast, "id">;
 
 function toast({ ...props }: Toast) {
   const id = genId();

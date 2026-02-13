@@ -1,7 +1,8 @@
 "use client";
 
-import { Button } from "@/shared-ui/components/button";
 import { useEffect } from "react";
+
+import { Button } from "@/shared-ui/components/button";
 
 /**
  * Route-level error boundary. `reset` re-renders the segment, which is enough
@@ -15,7 +16,7 @@ export default function ErrorPage({
   reset: () => void;
 }) {
   useEffect(() => {
-    // eslint-disable-next-line no-console
+     
     console.error(error);
   }, [error]);
 

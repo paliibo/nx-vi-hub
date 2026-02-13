@@ -1,8 +1,9 @@
 "use client";
-import { tw } from "@/tailwind";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { Icon, Trigger } from "@radix-ui/react-select";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const SelectTrigger = forwardRef<
   ElementRef<typeof Trigger>,

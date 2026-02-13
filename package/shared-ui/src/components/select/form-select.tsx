@@ -6,14 +6,14 @@ import { Select, SelectProps } from "./select";
 export type FormSelectProps<
   TFieldValues extends FieldValues,
   TPath extends FieldPathByValue<TFieldValues, boolean | null | number | string | undefined>,
-> = {
+> = Omit<
+    SelectProps,
+    "defaultValue" | "onBlur" | "onChange" | "value"
+  > & { containerClassName?: string } & {
   control: Control<TFieldValues>;
   defaultValue?: PathValue<TFieldValues, TPath>;
   name: TPath;
-} & { containerClassName?: string } & Omit<
-    SelectProps,
-    "defaultValue" | "onBlur" | "onChange" | "value"
-  >;
+};
 
 export const FormSelect = <
   TFieldValues extends FieldValues,
@@ -24,7 +24,7 @@ export const FormSelect = <
   defaultValue,
   name,
   ...props
-}: FormSelectProps<TFieldValues, TPath>): ReactElement | null => {
+}: FormSelectProps<TFieldValues, TPath>): null | ReactElement => {
   const { field, fieldState } = useController({
     control,
     defaultValue,

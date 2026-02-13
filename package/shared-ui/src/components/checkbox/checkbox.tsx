@@ -1,18 +1,19 @@
 "use client";
 
-import { tw } from "@/tailwind";
 import { Indicator, Root } from "@radix-ui/react-checkbox";
 import { CheckIcon } from "@radix-ui/react-icons";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
 
+import { tw } from "@/tailwind";
+
 import { FormError } from "../form-error";
 import { Label } from "../label";
 
-export type CheckboxProps = {
+export type CheckboxProps = ComponentPropsWithoutRef<typeof Root> & {
   containerClassName?: string;
   error?: false | string;
   label?: string;
-} & ComponentPropsWithoutRef<typeof Root>;
+};
 
 export const Checkbox = forwardRef<ElementRef<typeof Root>, CheckboxProps>(
   ({ className, containerClassName, error, label, ...props }, ref) => (

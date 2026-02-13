@@ -1,6 +1,7 @@
-import { tw } from "@/tailwind";
 import Image from "next/image";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const AvatarImage = forwardRef<
   ElementRef<typeof Image>,

@@ -1,7 +1,8 @@
 "use client";
 
-import { tw } from "@/tailwind";
 import { FC, HTMLAttributes } from "react";
+
+import { tw } from "@/tailwind";
 
 export const CommandShortcut: FC<HTMLAttributes<HTMLSpanElement>> = ({ className, ...props }) => {
   return (

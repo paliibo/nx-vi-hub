@@ -1,7 +1,8 @@
 "use client";
-import { tw } from "@/tailwind";
 import { Content, Portal } from "@radix-ui/react-dropdown-menu";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const DropdownMenuContent = forwardRef<
   ElementRef<typeof Content>,

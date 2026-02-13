@@ -1,6 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 
 import { ACCESS_TOKEN_COOKIE, STATUS_CODES } from "@/shared/constants";
+import { UnauthorizedError } from "@/shared/utils";
 
 import { verifyAccessToken } from "../utils/tokens";
 
@@ -73,4 +74,20 @@ export const requireAuth = (req: AuthAwareRequest, res: Response, next: NextFunc
     return;
   }
   next();
+};
+
+/**
+ * Reads the authenticated user off a request that has already passed
+ * `requireAuth`.
+ *
+ * Handlers previously wrote `req.user!.id`. The assertion was true in practice
+ * but silent if wrong: forget requireAuth on a new route and the handler reads
+ * `undefined.id` and answers 500 instead of 401. Checking here turns that
+ * mistake into the correct response.
+ */
+export const currentUser = (req: { user?: AuthenticatedUser }): AuthenticatedUser => {
+  if (!req.user) {
+    throw new UnauthorizedError("Sign in to continue");
+  }
+  return req.user;
 };

@@ -1,7 +1,8 @@
 "use client";
-import { tw } from "@/tailwind";
 import { List } from "@radix-ui/react-tabs";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const TabsList = forwardRef<ElementRef<typeof List>, ComponentPropsWithoutRef<typeof List>>(
   ({ className, ...props }, ref) => (

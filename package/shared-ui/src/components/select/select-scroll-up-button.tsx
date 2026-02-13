@@ -1,8 +1,9 @@
 "use client";
-import { tw } from "@/tailwind";
 import { ChevronUpIcon } from "@radix-ui/react-icons";
 import { ScrollUpButton } from "@radix-ui/react-select";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const SelectScrollUpButton = forwardRef<
   ElementRef<typeof ScrollUpButton>,

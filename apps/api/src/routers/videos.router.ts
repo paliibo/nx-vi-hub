@@ -1,9 +1,9 @@
 import { initServer } from "@ts-rest/express";
 
-import { STATUS_CODES } from "@/shared/constants";
 import { webContract } from "@/shared/api";
+import { STATUS_CODES } from "@/shared/constants";
 
-import { requireAuth } from "../middleware/auth";
+import { currentUser, requireAuth } from "../middleware/auth";
 import { videoService } from "../services";
 
 const s = initServer();
@@ -11,7 +11,7 @@ const s = initServer();
 export const videosRouter = s.router(webContract.videos, {
   create: {
     handler: async ({ body, req }) => ({
-      body: await videoService.createVideo(req.user!.id, body),
+      body: await videoService.createVideo(currentUser(req).id, body),
       status: STATUS_CODES.CREATED,
     }),
     middleware: [requireAuth],
@@ -29,7 +29,7 @@ export const videosRouter = s.router(webContract.videos, {
 
   react: {
     handler: async ({ body, params, req }) => ({
-      body: await videoService.reactToVideo(params.slug, req.user!.id, body),
+      body: await videoService.reactToVideo(params.slug, currentUser(req).id, body),
       status: STATUS_CODES.SUCCESS,
     }),
     middleware: [requireAuth],
@@ -37,7 +37,7 @@ export const videosRouter = s.router(webContract.videos, {
 
   recordProgress: {
     handler: async ({ body, params, req }) => ({
-      body: await videoService.recordProgress(params.slug, req.user!.id, body),
+      body: await videoService.recordProgress(params.slug, currentUser(req).id, body),
       status: STATUS_CODES.SUCCESS,
     }),
     middleware: [requireAuth],
@@ -55,7 +55,7 @@ export const videosRouter = s.router(webContract.videos, {
 
   remove: {
     handler: async ({ params, req }) => {
-      await videoService.deleteVideo(params.slug, req.user!.id);
+      await videoService.deleteVideo(params.slug, currentUser(req).id);
       return { body: { ok: true as const }, status: STATUS_CODES.SUCCESS };
     },
     middleware: [requireAuth],
@@ -63,7 +63,7 @@ export const videosRouter = s.router(webContract.videos, {
 
   update: {
     handler: async ({ body, params, req }) => ({
-      body: await videoService.updateVideo(params.slug, req.user!.id, body),
+      body: await videoService.updateVideo(params.slug, currentUser(req).id, body),
       status: STATUS_CODES.SUCCESS,
     }),
     middleware: [requireAuth],

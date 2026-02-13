@@ -9,11 +9,11 @@ export type FormToggleGroupProps<
     TFieldValues,
     boolean | null | number | string | string[] | undefined
   >,
-> = {
+> = Omit<ToggleGroupProps, "defaultValue" | "onBlur" | "onChange" | "value"> & {
   control: Control<TFieldValues>;
   defaultValue?: PathValue<TFieldValues, TPath>;
   name: TPath;
-} & Omit<ToggleGroupProps, "defaultValue" | "onBlur" | "onChange" | "value">;
+};
 
 export const FormToggleGroup = <
   TFieldValues extends FieldValues,

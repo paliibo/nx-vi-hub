@@ -1,5 +1,6 @@
-import { tw } from "@/tailwind";
 import { ComponentProps, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const PaginationContent = forwardRef<HTMLUListElement, ComponentProps<"ul">>(
   ({ className, ...props }, ref) => (

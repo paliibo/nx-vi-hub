@@ -1,5 +1,6 @@
-import { tw } from "@/tailwind";
 import { FC, HTMLAttributes } from "react";
+
+import { tw } from "@/tailwind";
 
 export const Skeleton: FC<HTMLAttributes<HTMLDivElement>> = ({ className, ...props }) => {
   return (

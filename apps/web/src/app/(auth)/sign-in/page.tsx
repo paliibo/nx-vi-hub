@@ -8,9 +8,13 @@ export const metadata: Metadata = { title: "Sign in" };
 export default async function SignInPage({
   searchParams,
 }: {
-  searchParams: { next?: string };
+  // Next 15 hands request data in as a promise so the page can start rendering
+  // before the query string is parsed.
+  searchParams: Promise<{ next?: string }>;
 }) {
   await redirectIfSignedIn();
 
-  return <SignInForm returnTo={searchParams.next} />;
+  const { next } = await searchParams;
+
+  return <SignInForm returnTo={next} />;
 }

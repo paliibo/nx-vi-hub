@@ -1,9 +1,10 @@
 "use client";
 
-import { tw } from "@/tailwind";
 import { DesktopIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+import { tw } from "@/tailwind";
 
 const OPTIONS = [
   { icon: SunIcon, label: "Light", value: "light" },
@@ -11,13 +12,25 @@ const OPTIONS = [
   { icon: DesktopIcon, label: "System", value: "system" },
 ] as const;
 
+/**
+ * True once hydrated, false during server rendering.
+ *
+ * The server cannot know the stored preference, so marking an option active
+ * before hydration highlights the wrong one and then visibly corrects itself.
+ * useSyncExternalStore expresses this in one render — a useState + useEffect
+ * pair would set state during an effect, which costs an extra render pass.
+ */
+const subscribe = () => () => undefined;
+const useIsHydrated = () =>
+  useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
+
 export const ThemeToggle = () => {
   const { setTheme, theme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  // The server cannot know the stored preference, so rendering the active state
-  // before mount would mark the wrong option and then correct itself.
-  useEffect(() => setMounted(true), []);
+  const mounted = useIsHydrated();
 
   return (
     <div

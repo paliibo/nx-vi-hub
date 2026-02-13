@@ -1,136 +1,34 @@
 "use client";
-export * from "./custom-use-form";
-export { type Resolver as ZodResolver, zodResolver } from "@hookform/resolvers/zod";
-export {
-  type ArrayPath,
-  type BatchFieldArrayUpdate,
-  type BrowserNativeObject,
-  type ChangeHandler,
-  type Control,
-  Controller,
-  type ControllerFieldState,
-  type ControllerProps,
-  type ControllerRenderProps,
-  type CriteriaMode,
-  type CustomElement,
-  type DeepMap,
-  type DeepPartial,
-  type DeepPartialSkipArrayKey,
-  type DeepRequired,
-  type DefaultValues,
-  type DelayCallback,
-  type EmptyObject,
-  type ErrorOption,
-  type EventType,
-  type Field,
-  type FieldArray,
-  type FieldArrayMethodProps,
-  type FieldArrayPath,
-  type FieldArrayPathValue,
-  type FieldArrayWithId,
-  type FieldElement,
-  type FieldError,
-  type FieldErrors,
-  type FieldErrorsImpl,
-  type FieldName,
-  type FieldNamesMarkedBoolean,
-  type FieldPath,
-  type FieldPathByValue,
-  type FieldPathValue,
-  type FieldPathValues,
-  type FieldRefs,
-  type FieldValue,
-  type FieldValues,
-  Form,
-  type FormProps,
-  FormProvider,
-  type FormProviderProps,
-  type FormState,
-  type FormStateProxy,
-  type FormStateSubjectRef,
-  type FormSubmitHandler,
-  type GetIsDirty,
-  type GlobalError,
-  type InternalFieldErrors,
-  type InternalFieldName,
-  type InternalNameSet,
-  type IsAny,
-  type IsEqual,
-  type IsFlatObject,
-  type IsNever,
-  type KeepStateOptions,
-  type LiteralUnion,
-  type Merge,
-  type Message,
-  type Mode,
-  type MultipleFieldErrors,
-  type Names,
-  type NativeFieldValue,
-  type NonUndefined,
-  type Noop,
-  type Path,
-  type PathString,
-  type PathValue,
-  type Primitive,
-  type ReadFormState,
-  type Ref,
-  type RefCallBack,
-  type RegisterOptions,
-  type Resolver,
-  type ResolverError,
-  type ResolverOptions,
-  type ResolverResult,
-  type ResolverSuccess,
-  type SetFieldValue,
-  type SetFocusOptions,
-  type SetValueConfig,
-  type Subjects,
-  type SubmitErrorHandler,
-  type SubmitHandler,
-  type TriggerConfig,
-  type UseControllerProps,
-  type UseControllerReturn,
-  type UseFieldArrayAppend,
-  type UseFieldArrayInsert,
-  type UseFieldArrayMove,
-  type UseFieldArrayPrepend,
-  type UseFieldArrayProps,
-  type UseFieldArrayRemove,
-  type UseFieldArrayReplace,
-  type UseFieldArrayReturn,
-  type UseFieldArraySwap,
-  type UseFieldArrayUpdate,
-  type UseFormClearErrors,
-  type UseFormGetFieldState,
-  type UseFormGetValues,
-  type UseFormHandleSubmit,
-  type UseFormRegister,
-  type UseFormRegisterReturn,
-  type UseFormReset,
-  type UseFormResetField,
-  type UseFormSetError,
-  type UseFormSetFocus,
-  type UseFormSetValue,
-  type UseFormStateProps,
-  type UseFormStateReturn,
-  type UseFormTrigger,
-  type UseFormUnregister,
-  type UseFormWatch,
-  type UseWatchProps,
-  type Validate,
-  type ValidateResult,
-  type ValidationMode,
-  type ValidationRule,
-  type ValidationValue,
-  type ValidationValueMessage,
-  type WatchInternal,
-  type WatchObserver,
-  appendErrors,
-  get,
-  set,
-  useController,
-  useFieldArray,
-  useFormContext,
-  useFormState,
-  useWatch,
-} from "react-hook-form";
+
+/**
+ * Our useForm wrapper adds touch-and-validate-on-submit. These are named
+ * explicitly rather than star-exported because an explicit export overrides a
+ * star export, whereas two star exports of the same name are ambiguous and the
+ * name silently disappears.
+ */
+export { useForm } from "./custom-use-form";
+
+export type {
+  SetTouchedConfig,
+  UseFormProps,
+  UseFormReturn,
+  UseFormSetTouched,
+} from "./custom-use-form";
+export { zodResolver } from "@hookform/resolvers/zod";
+
+/**
+ * Re-exports react-hook-form through the design system so consumers depend on
+ * one module rather than on the form library directly.
+ *
+ * This used to enumerate every exported type by hand — around 140 names that
+ * had to be kept in step with each react-hook-form release. A star export says
+ * the same thing and cannot fall behind.
+ */
+export * from "react-hook-form";
+
+/**
+ * @hookform/resolvers v5 stopped re-exporting `Resolver` from its zod entry
+ * point. It is the same type react-hook-form declares, so it is aliased from
+ * there and existing `ZodResolver` usages keep working.
+ */
+export type { Resolver as ZodResolver } from "react-hook-form";

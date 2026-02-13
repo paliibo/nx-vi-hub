@@ -1,5 +1,6 @@
+import { memo, ReactNode } from "react";
+
 import { tw } from "@/tailwind";
-import { ReactNode, memo } from "react";
 
 export type FooterProps = {
   footer?: ReactNode;

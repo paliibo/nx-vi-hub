@@ -10,7 +10,9 @@ export const cookiesUtil = <T>(key: string) => ({
     if (!response) return null;
     try {
       return JSON.parse(response) as T;
-    } catch (e) {
+    } catch {
+      // The value was not JSON — a plain string cookie set elsewhere. Hand it
+      // back as-is rather than losing it.
       return response;
     }
   },

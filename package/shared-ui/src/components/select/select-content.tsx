@@ -1,5 +1,4 @@
 "use client";
-import { tw } from "@/tailwind";
 import {
   Content,
   Portal,
@@ -8,6 +7,8 @@ import {
   Viewport,
 } from "@radix-ui/react-select";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const SelectContent = forwardRef<
   ElementRef<typeof Content>,

@@ -1,6 +1,6 @@
-import type { SessionUserSchema } from "@/shared/types/db";
-
 import { type ReactNode, Suspense } from "react";
+
+import type { SessionUserSchema } from "@/shared/types/db";
 
 import { CommandPalette } from "../search/command-palette";
 import { MobileNav } from "./mobile-nav";

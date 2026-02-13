@@ -1,3 +1,5 @@
+import { Prisma } from "@nx-vi-hub/db/server";
+
 import type {
   PlaylistSchema,
   PlaylistSummarySchema,
@@ -5,9 +7,8 @@ import type {
 } from "@/shared/types/db";
 
 import { COMPLETION_THRESHOLD } from "@/shared/constants";
-import { Prisma } from "@nx-vi-hub/db/server";
 
-import { toVideoSummary, videoSummarySelect, VideoSummaryRow } from "./video.mapper";
+import { toVideoSummary, VideoSummaryRow, videoSummarySelect } from "./video.mapper";
 
 export const playlistSummarySelect = {
   _count: { select: { items: true } },

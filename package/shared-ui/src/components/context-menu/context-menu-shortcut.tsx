@@ -1,6 +1,7 @@
 "use client";
-import { tw } from "@/tailwind";
 import { FC, HTMLAttributes } from "react";
+
+import { tw } from "@/tailwind";
 
 export const ContextMenuShortcut: FC<HTMLAttributes<HTMLSpanElement>> = ({
   className,

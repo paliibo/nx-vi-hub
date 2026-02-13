@@ -1,13 +1,14 @@
 "use client";
 
-import type { SessionUserSchema } from "@/shared/types/db";
-
-import { Avatar } from "@/shared-ui/components/avatar";
-import { Button } from "@/shared-ui/components/button";
 import { ExitIcon, GearIcon, PersonIcon, VideoIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+
+import type { SessionUserSchema } from "@/shared/types/db";
+
+import { Avatar } from "@/shared-ui/components/avatar";
+import { Button } from "@/shared-ui/components/button";
 
 import { api } from "../../lib/api-client";
 

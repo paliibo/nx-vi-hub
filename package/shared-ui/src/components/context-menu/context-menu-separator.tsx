@@ -1,7 +1,8 @@
 "use client";
-import { tw } from "@/tailwind";
 import { Separator } from "@radix-ui/react-context-menu";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const ContextMenuSeparator = forwardRef<
   ElementRef<typeof Separator>,

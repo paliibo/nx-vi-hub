@@ -1,9 +1,9 @@
 import { initServer } from "@ts-rest/express";
 
-import { STATUS_CODES } from "@/shared/constants";
 import { webContract } from "@/shared/api";
+import { STATUS_CODES } from "@/shared/constants";
 
-import { requireAuth } from "../middleware/auth";
+import { currentUser, requireAuth } from "../middleware/auth";
 import { libraryService } from "../services";
 
 const s = initServer();
@@ -15,7 +15,7 @@ const s = initServer();
 export const libraryRouter = s.router(webContract.library, {
   addPlaylistItem: {
     handler: async ({ body, params, req }) => ({
-      body: await libraryService.addPlaylistItem(params.playlistId, req.user!.id, body),
+      body: await libraryService.addPlaylistItem(params.playlistId, currentUser(req).id, body),
       status: STATUS_CODES.CREATED,
     }),
     middleware: [requireAuth],
@@ -23,7 +23,7 @@ export const libraryRouter = s.router(webContract.library, {
 
   clearHistory: {
     handler: async ({ req }) => {
-      await libraryService.clearHistory(req.user!.id);
+      await libraryService.clearHistory(currentUser(req).id);
       return { body: { ok: true as const }, status: STATUS_CODES.SUCCESS };
     },
     middleware: [requireAuth],
@@ -31,7 +31,7 @@ export const libraryRouter = s.router(webContract.library, {
 
   createPlaylist: {
     handler: async ({ body, req }) => ({
-      body: await libraryService.createPlaylist(req.user!.id, body),
+      body: await libraryService.createPlaylist(currentUser(req).id, body),
       status: STATUS_CODES.CREATED,
     }),
     middleware: [requireAuth],
@@ -39,7 +39,7 @@ export const libraryRouter = s.router(webContract.library, {
 
   deletePlaylist: {
     handler: async ({ params, req }) => {
-      await libraryService.deletePlaylist(params.playlistId, req.user!.id);
+      await libraryService.deletePlaylist(params.playlistId, currentUser(req).id);
       return { body: { ok: true as const }, status: STATUS_CODES.SUCCESS };
     },
     middleware: [requireAuth],
@@ -47,7 +47,7 @@ export const libraryRouter = s.router(webContract.library, {
 
   getPlaylist: {
     handler: async ({ params, req }) => ({
-      body: await libraryService.getPlaylist(params.playlistId, req.user!.id),
+      body: await libraryService.getPlaylist(params.playlistId, currentUser(req).id),
       status: STATUS_CODES.SUCCESS,
     }),
     middleware: [requireAuth],
@@ -55,7 +55,7 @@ export const libraryRouter = s.router(webContract.library, {
 
   liked: {
     handler: async ({ query, req }) => ({
-      body: await libraryService.listLiked(req.user!.id, query),
+      body: await libraryService.listLiked(currentUser(req).id, query),
       status: STATUS_CODES.SUCCESS,
     }),
     middleware: [requireAuth],
@@ -63,7 +63,7 @@ export const libraryRouter = s.router(webContract.library, {
 
   listPlaylists: {
     handler: async ({ req }) => ({
-      body: await libraryService.listPlaylists(req.user!.id),
+      body: await libraryService.listPlaylists(currentUser(req).id),
       status: STATUS_CODES.SUCCESS,
     }),
     middleware: [requireAuth],
@@ -71,7 +71,7 @@ export const libraryRouter = s.router(webContract.library, {
 
   removeHistoryEntry: {
     handler: async ({ params, req }) => {
-      await libraryService.removeHistoryEntry(req.user!.id, params.videoId);
+      await libraryService.removeHistoryEntry(currentUser(req).id, params.videoId);
       return { body: { ok: true as const }, status: STATUS_CODES.SUCCESS };
     },
     middleware: [requireAuth],
@@ -82,7 +82,7 @@ export const libraryRouter = s.router(webContract.library, {
       body: await libraryService.removePlaylistItem(
         params.playlistId,
         params.itemId,
-        req.user!.id,
+        currentUser(req).id,
       ),
       status: STATUS_CODES.SUCCESS,
     }),
@@ -91,7 +91,7 @@ export const libraryRouter = s.router(webContract.library, {
 
   reorderPlaylist: {
     handler: async ({ body, params, req }) => ({
-      body: await libraryService.reorderPlaylist(params.playlistId, req.user!.id, body),
+      body: await libraryService.reorderPlaylist(params.playlistId, currentUser(req).id, body),
       status: STATUS_CODES.SUCCESS,
     }),
     middleware: [requireAuth],
@@ -99,7 +99,7 @@ export const libraryRouter = s.router(webContract.library, {
 
   subscriptions: {
     handler: async ({ req }) => ({
-      body: await libraryService.listSubscriptions(req.user!.id),
+      body: await libraryService.listSubscriptions(currentUser(req).id),
       status: STATUS_CODES.SUCCESS,
     }),
     middleware: [requireAuth],
@@ -107,7 +107,7 @@ export const libraryRouter = s.router(webContract.library, {
 
   updatePlaylist: {
     handler: async ({ body, params, req }) => ({
-      body: await libraryService.updatePlaylist(params.playlistId, req.user!.id, body),
+      body: await libraryService.updatePlaylist(params.playlistId, currentUser(req).id, body),
       status: STATUS_CODES.SUCCESS,
     }),
     middleware: [requireAuth],
@@ -115,7 +115,7 @@ export const libraryRouter = s.router(webContract.library, {
 
   watchHistory: {
     handler: async ({ query, req }) => ({
-      body: await libraryService.listHistory(req.user!.id, query),
+      body: await libraryService.listHistory(currentUser(req).id, query),
       status: STATUS_CODES.SUCCESS,
     }),
     middleware: [requireAuth],

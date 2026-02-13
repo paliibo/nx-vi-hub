@@ -1,8 +1,9 @@
 "use client";
 
-import { tw } from "@/tailwind";
 import { Command as CommandPrimitive } from "cmdk";
 import { ComponentPropsWithoutRef, ElementRef, forwardRef } from "react";
+
+import { tw } from "@/tailwind";
 
 export const CommandItem = forwardRef<
   ElementRef<typeof CommandPrimitive.Item>,

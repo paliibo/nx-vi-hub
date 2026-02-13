@@ -5,11 +5,11 @@ import { posterArt, posterInitials } from "../../lib/poster";
 type VideoPosterProps = {
   accentColor?: null | string;
   className?: string;
+  /** Stable input for the generated art — the video slug. */
+  seed: string;
   /** Real thumbnail, when the video has one. Falls back to generated art. */
   thumbnailUrl?: null | string;
   title: string;
-  /** Stable input for the generated art — the video slug. */
-  seed: string;
 };
 
 /**
