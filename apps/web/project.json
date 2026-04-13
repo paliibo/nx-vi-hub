@@ -7,20 +7,5 @@
     "scope:web",
     "type:app"
   ],
-  "targets": {
-    "clean": {
-      "executor": "nx:run-commands",
-      "cache": false,
-      "options": {
-        "command": "node -e \"require('fs').rmSync('apps/web/.next',{force:true,recursive:true})\""
-      }
-    },
-    "build": {
-      "// note": "Next occasionally reuses a stale pages-router chunk from a previous run and then fails to prerender /404 with '<Html> should not be imported outside of pages/_document'. Starting from a clean .next removes the ambiguity; Nx still caches the build itself, so an unchanged rebuild is a cache hit rather than real work.",
-      "dependsOn": [
-        "clean",
-        "^build"
-      ]
-    }
-  }
+  "targets": {}
 }
