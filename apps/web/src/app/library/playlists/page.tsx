@@ -1,5 +1,6 @@
-import type { ListPlaylistsResponseSchema } from "@/shared/validation";
 import type { Metadata } from "next";
+
+import type { ListPlaylistsResponseSchema } from "@/shared/validation";
 
 import { PlaylistManager } from "../../../components/library/playlist-manager";
 import { PageHeader } from "../../../components/ui";

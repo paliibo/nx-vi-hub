@@ -107,6 +107,10 @@ export const VideoPlayer = ({
           event.preventDefault();
           togglePlay();
           break;
+        case "ArrowDown":
+          event.preventDefault();
+          video.volume = Math.max(0, video.volume - 0.1);
+          break;
         case "ArrowLeft":
           event.preventDefault();
           seekTo(video.currentTime - 5);
@@ -114,6 +118,13 @@ export const VideoPlayer = ({
         case "ArrowRight":
           event.preventDefault();
           seekTo(video.currentTime + 5);
+          break;
+        case "ArrowUp":
+          event.preventDefault();
+          video.volume = Math.min(1, video.volume + 0.1);
+          break;
+        case "f":
+          void containerRef.current?.requestFullscreen().catch(() => undefined);
           break;
         case "j":
           seekTo(video.currentTime - 10);
@@ -125,19 +136,8 @@ export const VideoPlayer = ({
           video.muted = !video.muted;
           setMuted(video.muted);
           break;
-        case "f":
-          void containerRef.current?.requestFullscreen().catch(() => undefined);
-          break;
         case "t":
           onTheatreToggle?.();
-          break;
-        case "ArrowUp":
-          event.preventDefault();
-          video.volume = Math.min(1, video.volume + 0.1);
-          break;
-        case "ArrowDown":
-          event.preventDefault();
-          video.volume = Math.max(0, video.volume - 0.1);
           break;
         default:
           if (/^[0-9]$/.test(event.key) && video.duration) {

@@ -1,8 +1,9 @@
-import type { ListSubscriptionsResponseSchema } from "@/shared/validation";
 import type { Metadata } from "next";
 
 import { LayersIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
+
+import type { ListSubscriptionsResponseSchema } from "@/shared/validation";
 
 import { EmptyState, PageHeader } from "../../components/ui";
 import { VideoCard } from "../../components/video";

@@ -13,8 +13,11 @@ import {
 
 export type SetTouchedConfig = Omit<SetValueConfig, "shouldTouch">;
 
-export interface UseFormProps<TFieldValues extends FieldValues = FieldValues, TContext = unknown>
-  extends UseOriginalFormProps<TFieldValues, TContext> {
+export interface UseFormProps<
+  TFieldValues extends FieldValues = FieldValues,
+  TContext = unknown,
+  TTransformedValues = TFieldValues,
+> extends UseOriginalFormProps<TFieldValues, TContext, TTransformedValues> {
   // This is custom behaviour. `useForm` DOES NOT touch and validate forms on submit,
   // which is a super bad UX: user presses submit button and nothing happens,
   // instead of showing validation error.
@@ -27,8 +30,11 @@ export interface UseFormProps<TFieldValues extends FieldValues = FieldValues, TC
   shouldValidateOnSubmit?: boolean;
 }
 
-export interface UseFormReturn<TFieldValues extends FieldValues = FieldValues, TContext = unknown>
-  extends UseOriginalFormReturn<TFieldValues, TContext> {
+export interface UseFormReturn<
+  TFieldValues extends FieldValues = FieldValues,
+  TContext = unknown,
+  TTransformedValues = TFieldValues,
+> extends UseOriginalFormReturn<TFieldValues, TContext, TTransformedValues> {
   /**
    * This function allows you to dynamically touch a registered field and have the options to
    * validate and update the form state.
@@ -43,14 +49,28 @@ export type UseFormSetTouched<TFieldValues extends FieldValues> = <
   options?: SetTouchedConfig,
 ) => void;
 
-export function useForm<TFieldValues extends FieldValues = FieldValues, TContext = unknown>({
+/**
+ * TTransformedValues is what the resolver produces, which is not always what the
+ * fields hold. A Zod schema with `.default()` makes those two types differ — the
+ * field is optional going in and guaranteed coming out — and without the third
+ * generic the resolver cannot be assigned to the form.
+ */
+export function useForm<
+  TFieldValues extends FieldValues = FieldValues,
+  TContext = unknown,
+  TTransformedValues = TFieldValues,
+>({
   mode = "onTouched",
   shouldValidateOnSubmit = true,
   ...props
-}: UseFormProps<TFieldValues, TContext> = {}): UseFormReturn<TFieldValues, TContext> {
+}: UseFormProps<TFieldValues, TContext, TTransformedValues> = {}): UseFormReturn<
+  TFieldValues,
+  TContext,
+  TTransformedValues
+> {
   // `useOriginalForm` always returns the same object reference, so it is safe
   //  to use it as a useCallback dependency
-  const form = useOriginalForm<TFieldValues, TContext>({
+  const form = useOriginalForm<TFieldValues, TContext, TTransformedValues>({
     mode,
     ...props,
   });
@@ -66,7 +86,7 @@ export function useForm<TFieldValues extends FieldValues = FieldValues, TContext
     [form],
   );
 
-  const handleSubmit = useCallback<UseFormHandleSubmit<TFieldValues>>(
+  const handleSubmit = useCallback<UseFormHandleSubmit<TFieldValues, TTransformedValues>>(
     (...args) =>
       (...eventArgs) => {
         if (shouldValidateOnSubmit) {

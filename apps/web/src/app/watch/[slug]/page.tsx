@@ -1,12 +1,13 @@
+import type { Metadata } from "next";
+
+import { notFound } from "next/navigation";
+
 import type {
   ListCommentsResponseSchema,
   RelatedVideosResponseSchema,
   VideoDetailResponseSchema,
 } from "@/shared/validation";
 import type { ChannelResponseSchema } from "@/shared/validation";
-import type { Metadata } from "next";
-
-import { notFound } from "next/navigation";
 
 import { okOrNull, serverApi } from "../../../lib/api-server";
 import { parseTimestampParam } from "../../../lib/format";
@@ -66,8 +67,8 @@ export default async function WatchPage({ params, searchParams }: WatchPageProps
   return (
     <WatchView
       channelSubscribers={channel?.subscriberCount ?? 0}
-      commentTotal={comments?.pagination.count ?? 0}
       comments={comments?.items ?? []}
+      commentTotal={comments?.pagination.count ?? 0}
       related={related?.items ?? []}
       resumeAtSeconds={resumeAtSeconds}
       session={session}

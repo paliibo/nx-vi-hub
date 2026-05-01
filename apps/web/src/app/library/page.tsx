@@ -1,11 +1,12 @@
-import type {
-  ListHistoryResponseSchema,
-  ListPlaylistsResponseSchema,
-} from "@/shared/validation";
 import type { Metadata } from "next";
 
 import { ArchiveIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
+
+import type {
+  ListHistoryResponseSchema,
+  ListPlaylistsResponseSchema,
+} from "@/shared/validation";
 
 import { EmptyState, PageHeader } from "../../components/ui";
 import { VideoCard } from "../../components/video";

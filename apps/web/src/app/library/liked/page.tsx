@@ -1,7 +1,8 @@
-import type { ListLikedResponseSchema } from "@/shared/validation";
 import type { Metadata } from "next";
 
 import { HeartIcon } from "@radix-ui/react-icons";
+
+import type { ListLikedResponseSchema } from "@/shared/validation";
 
 import { EmptyState, PageHeader, PaginationControls } from "../../../components/ui";
 import { VideoGrid } from "../../../components/video";

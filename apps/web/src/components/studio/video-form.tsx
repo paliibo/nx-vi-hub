@@ -1,29 +1,35 @@
 "use client";
 
-import type { CategorySchema } from "@/shared/types";
-import type { CreateVideoBodySchema } from "@/shared/validation";
-
-import { createVideoBodySchema } from "@/shared/validation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+
+import type { CategorySchema } from "@/shared/types";
+import type { CreateVideoBodySchema, CreateVideoInputSchema } from "@/shared/validation";
 
 import { Button } from "@/shared-ui/components/button";
 import { useForm, zodResolver } from "@/shared-ui/components/form";
 import { FormInput } from "@/shared-ui/components/input";
+import { createVideoBodySchema } from "@/shared/validation";
 
 import { api } from "../../lib/api-client";
 
 type VideoFormProps = {
   categories: CategorySchema[];
   /** Present when editing; absent when publishing something new. */
-  initial?: Partial<CreateVideoBodySchema> & { slug: string };
+  initial?: Partial<CreateVideoInputSchema> & { slug: string };
 };
 
 export const VideoForm = ({ categories, initial }: VideoFormProps) => {
   const router = useRouter();
   const [error, setError] = useState<null | string>(null);
 
-  const { control, formState, handleSubmit, register, watch } = useForm<CreateVideoBodySchema>({
+  // <fields, context, parsed> — the fields are the pre-default shape, the
+  // submit handler receives the parsed one.
+  const { control, formState, handleSubmit, register, watch } = useForm<
+    CreateVideoInputSchema,
+    unknown,
+    CreateVideoBodySchema
+  >({
     defaultValues: {
       categorySlug: initial?.categorySlug ?? categories[0]?.slug,
       description: initial?.description ?? "",
@@ -58,7 +64,7 @@ export const VideoForm = ({ categories, initial }: VideoFormProps) => {
       return;
     }
 
-    const body = result.body as { message?: string } | null;
+    const body = result.body as null | { message?: string };
     setError(body?.message ?? "Could not save the video.");
   });
 

@@ -57,3 +57,5 @@ out
 .nx/polygraph
 .nx/self-healing
 .nx/migrate-runs
+# TypeScript incremental build state
+*.tsbuildinfo

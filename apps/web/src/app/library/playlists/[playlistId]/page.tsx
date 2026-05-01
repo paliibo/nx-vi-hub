@@ -1,7 +1,8 @@
-import type { PlaylistResponseSchema } from "@/shared/validation";
 import type { Metadata } from "next";
 
 import { notFound } from "next/navigation";
+
+import type { PlaylistResponseSchema } from "@/shared/validation";
 
 import { PlaylistItems } from "../../../../components/library/playlist-items";
 import { EmptyState, PageHeader } from "../../../../components/ui";

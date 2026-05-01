@@ -1,11 +1,11 @@
 "use client";
 
-import type { PlaylistSummarySchema } from "@/shared/types";
-
 import { PlusIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+
+import type { PlaylistSummarySchema } from "@/shared/types";
 
 import { Button } from "@/shared-ui/components/button";
 
@@ -35,7 +35,7 @@ export const PlaylistManager = ({ playlists }: { playlists: PlaylistSummarySchem
       setCreating(false);
       router.refresh();
     } else {
-      const body = result.body as { message?: string } | null;
+      const body = result.body as null | { message?: string };
       setError(body?.message ?? "Could not create the playlist.");
     }
 

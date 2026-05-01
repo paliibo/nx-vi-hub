@@ -49,7 +49,14 @@ export const discoverResponseSchema = z.object({
   trending: z.array(videoSummarySchema),
 });
 
+/**
+ * Two types per schema with defaults. `z.infer` is what the API receives once
+ * Zod has filled the defaults in; `z.input` is what a form actually holds, where
+ * those same fields are still optional. Forms need the input type or the
+ * resolver cannot be assigned to them.
+ */
 export type CreateVideoBodySchema = z.infer<typeof createVideoBodySchema>;
+export type CreateVideoInputSchema = z.input<typeof createVideoBodySchema>;
 export const createVideoBodySchema = z.object({
   categorySlug: z.string().optional(),
   description: z.string().max(5000, "Keep the description under 5000 characters").default(""),

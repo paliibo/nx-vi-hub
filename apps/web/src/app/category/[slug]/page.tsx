@@ -1,10 +1,11 @@
+import type { Metadata } from "next";
+
+import { notFound } from "next/navigation";
+
 import type {
   ListCategoriesResponseSchema,
   ListVideosResponseSchema,
 } from "@/shared/validation";
-import type { Metadata } from "next";
-
-import { notFound } from "next/navigation";
 
 import { EmptyState, PageHeader, PaginationControls } from "../../../components/ui";
 import { VideoGrid } from "../../../components/video";
@@ -19,14 +20,6 @@ const loadCategory = async (slug: string) => {
   const categories = okOrNull<ListCategoriesResponseSchema>(await serverApi.catalog.categories());
   return categories?.items.find(category => category.slug === slug) ?? null;
 };
-
-export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const category = await loadCategory(slug);
-  return category
-    ? { description: category.description ?? undefined, title: category.name }
-    : { title: "Category not found" };
-}
 
 export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
   const [{ slug }, query] = await Promise.all([params, searchParams]);
@@ -78,4 +71,12 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
       </div>
     </div>
   );
+}
+
+export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const category = await loadCategory(slug);
+  return category
+    ? { description: category.description ?? undefined, title: category.name }
+    : { title: "Category not found" };
 }

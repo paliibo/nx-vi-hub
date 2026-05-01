@@ -1,10 +1,10 @@
 "use client";
 
-import type { CommentThreadSchema, SessionUserSchema } from "@/shared/types";
-
 import { ChatBubbleIcon, TrashIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { useState } from "react";
+
+import type { CommentThreadSchema, SessionUserSchema } from "@/shared/types";
 
 import { Button } from "@/shared-ui/components/button";
 

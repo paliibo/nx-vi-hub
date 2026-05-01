@@ -1,10 +1,10 @@
 "use client";
 
-import type { PlaylistSchema } from "@/shared/types";
-
 import { ChevronDownIcon, ChevronUpIcon, TrashIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { useState } from "react";
+
+import type { PlaylistSchema } from "@/shared/types";
 
 import { api } from "../../lib/api-client";
 import { formatDuration, formatViews } from "../../lib/format";

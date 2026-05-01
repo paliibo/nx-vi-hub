@@ -1,11 +1,11 @@
 "use client";
 
-import type { CategorySchema } from "@/shared/types";
-
-import { VIDEO_SORT_LABELS, type VideoSort } from "@/shared/constants";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
+import type { CategorySchema } from "@/shared/types";
+
+import { VIDEO_SORT_LABELS, type VideoSort } from "@/shared/constants";
 import { tw } from "@/tailwind";
 
 type SearchFiltersProps = {

@@ -1,13 +1,13 @@
 "use client";
 
-import type { ChangePasswordBodySchema } from "@/shared/validation";
-
-import { changePasswordBodySchema } from "@/shared/validation";
 import { useState } from "react";
+
+import type { ChangePasswordBodySchema } from "@/shared/validation";
 
 import { Button } from "@/shared-ui/components/button";
 import { useForm, zodResolver } from "@/shared-ui/components/form";
 import { FormInput } from "@/shared-ui/components/input";
+import { changePasswordBodySchema } from "@/shared/validation";
 
 import { api } from "../../lib/api-client";
 
@@ -31,7 +31,7 @@ export const PasswordForm = () => {
       return;
     }
 
-    const body = result.body as { message?: string } | null;
+    const body = result.body as null | { message?: string };
     setStatus({ message: body?.message ?? "Could not change your password.", ok: false });
   });
 

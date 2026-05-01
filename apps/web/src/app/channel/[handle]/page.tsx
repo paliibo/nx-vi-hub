@@ -1,14 +1,15 @@
-import type {
-  ChannelResponseSchema,
-  ListChannelVideosResponseSchema,
-} from "@/shared/validation";
 import type { Metadata } from "next";
 
 import { notFound } from "next/navigation";
 
-import { SubscribeButton } from "../../../components/watch/subscribe-button";
+import type {
+  ChannelResponseSchema,
+  ListChannelVideosResponseSchema,
+} from "@/shared/validation";
+
 import { EmptyState, PaginationControls } from "../../../components/ui";
 import { VideoGrid } from "../../../components/video";
+import { SubscribeButton } from "../../../components/watch/subscribe-button";
 import { okOrNull, serverApi } from "../../../lib/api-server";
 import { formatCompact, formatDate } from "../../../lib/format";
 import { getSession } from "../../../lib/session";
@@ -17,16 +18,6 @@ type ChannelPageProps = {
   params: Promise<{ handle: string }>;
   searchParams: Promise<{ page?: string }>;
 };
-
-export async function generateMetadata({ params }: ChannelPageProps): Promise<Metadata> {
-  const { handle } = await params;
-  const channel = okOrNull<ChannelResponseSchema>(
-    await serverApi.channels.getByHandle({ params: { handle } }),
-  );
-  return channel
-    ? { description: channel.description ?? undefined, title: channel.name }
-    : { title: "Channel not found" };
-}
 
 export default async function ChannelPage({ params, searchParams }: ChannelPageProps) {
   const [{ handle }, query] = await Promise.all([params, searchParams]);
@@ -115,4 +106,14 @@ export default async function ChannelPage({ params, searchParams }: ChannelPageP
       </div>
     </div>
   );
+}
+
+export async function generateMetadata({ params }: ChannelPageProps): Promise<Metadata> {
+  const { handle } = await params;
+  const channel = okOrNull<ChannelResponseSchema>(
+    await serverApi.channels.getByHandle({ params: { handle } }),
+  );
+  return channel
+    ? { description: channel.description ?? undefined, title: channel.name }
+    : { title: "Channel not found" };
 }

@@ -1,5 +1,8 @@
 "use client";
 
+import Link from "next/link";
+import { useState } from "react";
+
 import type {
   CommentThreadSchema,
   SessionUserSchema,
@@ -7,16 +10,13 @@ import type {
   VideoSummarySchema,
 } from "@/shared/types";
 
-import Link from "next/link";
-import { useState } from "react";
-
 import { tw } from "@/tailwind";
 
 import { CommentList } from "../../../components/comments/comment-list";
+import { VideoCard } from "../../../components/video";
 import { SubscribeButton } from "../../../components/watch/subscribe-button";
 import { VideoActions } from "../../../components/watch/video-actions";
 import { VideoPlayer } from "../../../components/watch/video-player";
-import { VideoCard } from "../../../components/video";
 import { formatDate, formatViews } from "../../../lib/format";
 
 type WatchViewProps = {

@@ -1,7 +1,8 @@
-import type { ListHistoryResponseSchema } from "@/shared/validation";
 import type { Metadata } from "next";
 
 import { CounterClockwiseClockIcon } from "@radix-ui/react-icons";
+
+import type { ListHistoryResponseSchema } from "@/shared/validation";
 
 import { ClearHistoryButton } from "../../../components/library/clear-history-button";
 import { EmptyState, PageHeader, PaginationControls } from "../../../components/ui";

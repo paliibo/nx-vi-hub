@@ -1,7 +1,5 @@
 "use client";
 
-import type { PlaylistSummarySchema, ReactionType, VideoDetailSchema } from "@/shared/types";
-
 import {
   BookmarkIcon,
   Link2Icon,
@@ -10,6 +8,8 @@ import {
 } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+
+import type { PlaylistSummarySchema, ReactionType, VideoDetailSchema } from "@/shared/types";
 
 import { tw } from "@/tailwind";
 

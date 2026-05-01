@@ -1,15 +1,15 @@
 "use client";
 
-import type { SessionUserSchema } from "@/shared/types";
-import type { UpdateProfileBodySchema } from "@/shared/validation";
-
-import { updateProfileBodySchema } from "@/shared/validation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+
+import type { SessionUserSchema } from "@/shared/types";
+import type { UpdateProfileBodySchema } from "@/shared/validation";
 
 import { Button } from "@/shared-ui/components/button";
 import { useForm, zodResolver } from "@/shared-ui/components/form";
 import { FormInput } from "@/shared-ui/components/input";
+import { updateProfileBodySchema } from "@/shared/validation";
 
 import { api } from "../../lib/api-client";
 
@@ -41,7 +41,7 @@ export const ProfileForm = ({ session }: { session: SessionUserSchema }) => {
       return;
     }
 
-    const body = result.body as { message?: string } | null;
+    const body = result.body as null | { message?: string };
     setStatus({ message: body?.message ?? "Could not save your profile.", ok: false });
   });
 

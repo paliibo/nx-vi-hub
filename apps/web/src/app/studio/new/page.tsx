@@ -1,7 +1,8 @@
-import type { ListCategoriesResponseSchema } from "@/shared/validation";
 import type { Metadata } from "next";
 
 import { redirect } from "next/navigation";
+
+import type { ListCategoriesResponseSchema } from "@/shared/validation";
 
 import { VideoForm } from "../../../components/studio/video-form";
 import { PageHeader } from "../../../components/ui";

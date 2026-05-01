@@ -25,6 +25,7 @@ export type PlaylistResponseSchema = z.infer<typeof playlistResponseSchema>;
 export const playlistResponseSchema = playlistSchema;
 
 export type CreatePlaylistBodySchema = z.infer<typeof createPlaylistBodySchema>;
+export type CreatePlaylistInputSchema = z.input<typeof createPlaylistBodySchema>;
 export const createPlaylistBodySchema = z.object({
   description: z.string().max(600).nullable().optional(),
   title: z.string().trim().min(1, "Name the playlist").max(80, "Keep the name under 80 characters"),
