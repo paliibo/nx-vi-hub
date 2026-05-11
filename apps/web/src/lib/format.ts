@@ -94,8 +94,18 @@ export const formatRelativeTime = (date: Date | string, now: Date = new Date()):
 
 /** Stable across server and browser — toLocaleDateString is not. */
 const MONTH_NAMES = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 
 export const formatDate = (date: Date | string): string => {

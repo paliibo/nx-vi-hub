@@ -19,7 +19,7 @@ export const PageHeader = ({
 }: PageHeaderProps) => (
   <div className={tw("flex flex-wrap items-end justify-between gap-4", className)}>
     <div className="min-w-0">
-      {eyebrow && <p className="text-label mb-1 text-muted-foreground">{eyebrow}</p>}
+      {eyebrow && <p className="mb-1 text-muted-foreground text-label">{eyebrow}</p>}
       <h1 className="text-headline-l">{title}</h1>
       {description && (
         <div className="mt-1 max-w-2xl text-sm text-muted-foreground">{description}</div>

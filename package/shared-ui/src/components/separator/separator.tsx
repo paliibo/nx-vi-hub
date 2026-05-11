@@ -9,7 +9,7 @@ export const Separator = forwardRef<ElementRef<typeof Root>, ComponentPropsWitho
   ({ className, decorative = true, orientation = "horizontal", ...props }, ref) => (
     <Root
       className={tw(
-        "shrink-0 bg-muted",
+        "bg-muted shrink-0",
         orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]",
         className,
       )}

@@ -6,7 +6,12 @@ import type { VideoSummarySchema } from "@/shared/types/db";
 
 import { tw } from "@/tailwind";
 
-import { describeDuration, formatDuration, formatRelativeTime, formatViews } from "../../lib/format";
+import {
+  describeDuration,
+  formatDuration,
+  formatRelativeTime,
+  formatViews,
+} from "../../lib/format";
 import { VideoPoster } from "./video-poster";
 
 type VideoCardProps = {
@@ -41,10 +46,7 @@ export const VideoCard = ({ className, hideChannel, progress, style, video }: Vi
       </span>
 
       {progress !== undefined && progress > 0 && (
-        <span
-          aria-hidden="true"
-          className="absolute inset-x-0 bottom-0 h-1 bg-overlay/60"
-        >
+        <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1 bg-overlay/60">
           <span
             className="block h-full bg-primary"
             style={{ width: `${Math.min(100, Math.round(progress * 100))}%` }}
@@ -54,8 +56,11 @@ export const VideoCard = ({ className, hideChannel, progress, style, video }: Vi
     </Link>
 
     <div className="flex min-w-0 flex-col gap-1">
-      <h3 className="text-headline-s line-clamp-2">
-        <Link className="focus-ring rounded transition-colors hover:text-primary" href={`/watch/${video.slug}`}>
+      <h3 className="line-clamp-2 text-headline-s">
+        <Link
+          className="focus-ring rounded transition-colors hover:text-primary"
+          href={`/watch/${video.slug}`}
+        >
           {video.title}
         </Link>
       </h3>
@@ -69,7 +74,7 @@ export const VideoCard = ({ className, hideChannel, progress, style, video }: Vi
         </Link>
       )}
 
-      <p className="text-body-s text-muted-foreground">
+      <p className="text-muted-foreground text-body-s">
         {formatViews(video.views)} · {formatRelativeTime(video.publishedAt)}
       </p>
     </div>

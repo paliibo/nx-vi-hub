@@ -152,11 +152,7 @@ export const getRelatedVideos = async (slug: string, limit = 8) => {
   return { items: rows.map(toVideoSummary) };
 };
 
-export const reactToVideo = async (
-  slug: string,
-  userId: string,
-  body: ReactBodySchema,
-) => {
+export const reactToVideo = async (slug: string, userId: string, body: ReactBodySchema) => {
   const video = await prisma.video.findUnique({ select: { id: true }, where: { slug } });
   if (!video) throw new NotFoundError("Video");
 
@@ -179,11 +175,13 @@ export const reactToVideo = async (
 };
 
 export const registerView = async (slug: string) => {
-  const video = await prisma.video.update({
-    data: { views: { increment: 1 } },
-    select: { views: true },
-    where: { slug },
-  }).catch(() => null);
+  const video = await prisma.video
+    .update({
+      data: { views: { increment: 1 } },
+      select: { views: true },
+      where: { slug },
+    })
+    .catch(() => null);
 
   if (!video) throw new NotFoundError("Video");
   return { views: video.views };

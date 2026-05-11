@@ -9,10 +9,6 @@ export const AlertDialogDescription = forwardRef<
   ElementRef<typeof Description>,
   ComponentPropsWithoutRef<typeof Description>
 >(({ className, ...props }, ref) => (
-  <Description
-    className={tw("text-sm text-muted-foreground", className)}
-    ref={ref}
-    {...props}
-  />
+  <Description className={tw("text-muted-foreground text-sm", className)} ref={ref} {...props} />
 ));
 AlertDialogDescription.displayName = Description.displayName;

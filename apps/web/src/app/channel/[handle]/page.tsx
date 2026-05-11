@@ -2,10 +2,7 @@ import type { Metadata } from "next";
 
 import { notFound } from "next/navigation";
 
-import type {
-  ChannelResponseSchema,
-  ListChannelVideosResponseSchema,
-} from "@/shared/validation";
+import type { ChannelResponseSchema, ListChannelVideosResponseSchema } from "@/shared/validation";
 
 import { EmptyState, PaginationControls } from "../../../components/ui";
 import { VideoGrid } from "../../../components/video";
@@ -67,7 +64,7 @@ export default async function ChannelPage({ params, searchParams }: ChannelPageP
           {channel.description && (
             <p className="mt-2 max-w-2xl text-sm text-muted-foreground">{channel.description}</p>
           )}
-          <p className="mt-1 text-body-s text-muted-foreground">
+          <p className="mt-1 text-muted-foreground text-body-s">
             Joined {formatDate(channel.createdAt)}
           </p>
         </div>

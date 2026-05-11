@@ -133,7 +133,7 @@ export const CommandPalette = () => {
                   >
                     <VideoIcon className="mr-2 h-4 w-4 shrink-0 text-muted-foreground" />
                     <span className="flex-1 truncate">{video.title}</span>
-                    <span className="ml-2 shrink-0 text-body-s text-muted-foreground">
+                    <span className="ml-2 shrink-0 text-muted-foreground text-body-s">
                       {formatDuration(video.durationSeconds)}
                     </span>
                   </CommandItem>
@@ -155,7 +155,7 @@ export const CommandPalette = () => {
                       style={{ backgroundColor: channel.accentColor }}
                     />
                     <span className="flex-1 truncate">{channel.name}</span>
-                    <span className="ml-2 shrink-0 text-body-s text-muted-foreground">
+                    <span className="ml-2 shrink-0 text-muted-foreground text-body-s">
                       @{channel.handle}
                     </span>
                   </CommandItem>

@@ -47,7 +47,10 @@ export default async function SettingsPage() {
         ) : (
           <p className="text-sm text-muted-foreground">
             You do not have a channel yet.{" "}
-            <Link className="focus-ring rounded font-medium text-primary hover:underline" href="/studio">
+            <Link
+              className="focus-ring rounded font-medium text-primary hover:underline"
+              href="/studio"
+            >
               Create one
             </Link>{" "}
             to start publishing.

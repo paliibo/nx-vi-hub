@@ -5,10 +5,7 @@ import { tw } from "@/tailwind";
 export const Card = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   ({ className, ...props }, ref) => (
     <div
-      className={tw(
-        "rounded-xl border border-border bg-surface text-foreground shadow",
-        className,
-      )}
+      className={tw("border-border bg-surface text-foreground rounded-xl border shadow", className)}
       ref={ref}
       {...props}
     />

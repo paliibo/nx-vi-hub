@@ -3,10 +3,7 @@ import type { Metadata } from "next";
 import { ArchiveIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 
-import type {
-  ListHistoryResponseSchema,
-  ListPlaylistsResponseSchema,
-} from "@/shared/validation";
+import type { ListHistoryResponseSchema, ListPlaylistsResponseSchema } from "@/shared/validation";
 
 import { EmptyState, PageHeader } from "../../components/ui";
 import { VideoCard } from "../../components/video";
@@ -61,11 +58,7 @@ export default async function LibraryPage() {
         ) : (
           <div className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
             {entries.map(entry => (
-              <VideoCard
-                key={entry.video.id}
-                progress={entry.progressRatio}
-                video={entry.video}
-              />
+              <VideoCard key={entry.video.id} progress={entry.progressRatio} video={entry.video} />
             ))}
           </div>
         )}
@@ -82,7 +75,7 @@ export default async function LibraryPage() {
                 href={`/library/playlists/${playlist.id}`}
               >
                 <span className="text-headline-s">{playlist.title}</span>
-                <span className="text-body-s text-muted-foreground">
+                <span className="text-muted-foreground text-body-s">
                   {playlist.itemCount} {playlist.itemCount === 1 ? "video" : "videos"} ·{" "}
                   {formatRelativeTime(playlist.updatedAt)}
                 </span>

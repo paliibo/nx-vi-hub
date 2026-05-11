@@ -57,12 +57,12 @@ export default async function SubscriptionsPage() {
                 </span>
                 <div>
                   <Link
-                    className="focus-ring rounded text-headline-s transition-colors hover:text-primary"
+                    className="focus-ring rounded transition-colors text-headline-s hover:text-primary"
                     href={`/channel/${channel.handle}`}
                   >
                     {channel.name}
                   </Link>
-                  <p className="text-body-s text-muted-foreground">
+                  <p className="text-muted-foreground text-body-s">
                     {formatCompact(channel.subscriberCount)} subscribers
                   </p>
                 </div>

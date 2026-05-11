@@ -61,7 +61,7 @@ export const PlaylistManager = ({ playlists }: { playlists: PlaylistSummarySchem
             Cancel
           </Button>
           {error && (
-            <p className="w-full text-body-s text-danger" role="alert">
+            <p className="w-full text-danger text-body-s" role="alert">
               {error}
             </p>
           )}
@@ -83,12 +83,12 @@ export const PlaylistManager = ({ playlists }: { playlists: PlaylistSummarySchem
               <span className="flex items-center gap-2">
                 <span className="text-headline-s">{playlist.title}</span>
                 {playlist.system && (
-                  <span className="text-label rounded bg-muted px-1.5 py-0.5 text-muted-foreground">
+                  <span className="rounded bg-muted px-1.5 py-0.5 text-muted-foreground text-label">
                     Built in
                   </span>
                 )}
               </span>
-              <span className="text-body-s text-muted-foreground">
+              <span className="text-muted-foreground text-body-s">
                 {playlist.itemCount} {playlist.itemCount === 1 ? "video" : "videos"} ·{" "}
                 {formatRelativeTime(playlist.updatedAt)}
               </span>

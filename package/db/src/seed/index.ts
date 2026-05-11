@@ -3,14 +3,7 @@ import * as argon2 from "argon2";
 import { config } from "dotenv";
 import { join } from "path";
 
-import {
-  CATEGORIES,
-  CHANNELS,
-  COMMENT_BODIES,
-  REPLY_BODIES,
-  SAMPLE_SOURCES,
-  VIDEOS,
-} from "./data";
+import { CATEGORIES, CHANNELS, COMMENT_BODIES, REPLY_BODIES, SAMPLE_SOURCES, VIDEOS } from "./data";
 import { daysBefore, pick, pickFrom, slugify } from "./helpers";
 
 config({ path: join(__dirname, "../../../../.env") });

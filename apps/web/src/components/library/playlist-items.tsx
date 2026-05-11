@@ -59,7 +59,7 @@ export const PlaylistItems = ({ playlist }: { playlist: PlaylistSchema }) => {
     <ol className="flex flex-col divide-y divide-border rounded-xl border border-border">
       {items.map((item, index) => (
         <li className="flex items-center gap-4 p-3" key={item.id}>
-          <span className="w-6 shrink-0 text-center text-body-s tabular-nums text-muted-foreground">
+          <span className="w-6 shrink-0 text-center tabular-nums text-muted-foreground text-body-s">
             {index + 1}
           </span>
 
@@ -86,7 +86,7 @@ export const PlaylistItems = ({ playlist }: { playlist: PlaylistSchema }) => {
             >
               {item.video.title}
             </Link>
-            <p className="text-body-s text-muted-foreground">
+            <p className="text-muted-foreground text-body-s">
               {item.video.channel.name} · {formatViews(item.video.views)}
             </p>
           </div>

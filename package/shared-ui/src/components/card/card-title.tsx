@@ -13,11 +13,7 @@ type CardTitleProps = Omit<HTMLAttributes<HTMLHeadingElement>, "children"> & {
 
 export const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
   ({ children, className, ...props }, ref) => (
-    <h3
-      className={tw("font-semibold leading-none tracking-tight", className)}
-      ref={ref}
-      {...props}
-    >
+    <h3 className={tw("font-semibold leading-none tracking-tight", className)} ref={ref} {...props}>
       {children}
     </h3>
   ),

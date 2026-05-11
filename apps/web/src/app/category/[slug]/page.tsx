@@ -2,10 +2,7 @@ import type { Metadata } from "next";
 
 import { notFound } from "next/navigation";
 
-import type {
-  ListCategoriesResponseSchema,
-  ListVideosResponseSchema,
-} from "@/shared/validation";
+import type { ListCategoriesResponseSchema, ListVideosResponseSchema } from "@/shared/validation";
 
 import { EmptyState, PageHeader, PaginationControls } from "../../../components/ui";
 import { VideoGrid } from "../../../components/video";
@@ -44,11 +41,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
           background: `linear-gradient(135deg, ${category.accentColor}22, transparent 60%)`,
         }}
       >
-        <PageHeader
-          description={category.description}
-          eyebrow="Category"
-          title={category.name}
-        />
+        <PageHeader description={category.description} eyebrow="Category" title={category.name} />
       </div>
 
       <div className="flex flex-col gap-6 px-4 pb-8">

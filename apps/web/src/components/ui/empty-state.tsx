@@ -14,13 +14,7 @@ type EmptyStateProps = {
  * The empty state is the first thing a new account sees on most pages, so it
  * gets a real design rather than a centred sentence.
  */
-export const EmptyState = ({
-  action,
-  className,
-  description,
-  icon,
-  title,
-}: EmptyStateProps) => (
+export const EmptyState = ({ action, className, description, icon, title }: EmptyStateProps) => (
   <div
     className={tw(
       "flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border px-6 py-16 text-center",

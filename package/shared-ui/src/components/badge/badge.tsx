@@ -11,13 +11,11 @@ export const badgeVariants = cva(
     },
     variants: {
       variant: {
-        default:
-          "border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80",
+        default: "border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80",
         destructive:
           "border-transparent bg-danger text-danger-foreground shadow hover:bg-danger/80",
         outline: "text-foreground",
-        secondary:
-          "border-transparent bg-muted text-foreground hover:bg-muted/80",
+        secondary: "border-transparent bg-muted text-foreground hover:bg-muted/80",
       },
     },
   },

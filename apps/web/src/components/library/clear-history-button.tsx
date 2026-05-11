@@ -32,7 +32,7 @@ export const ClearHistoryButton = () => {
 
   return (
     <span className="flex items-center gap-2">
-      <span className="text-body-s text-muted-foreground">Delete all history?</span>
+      <span className="text-muted-foreground text-body-s">Delete all history?</span>
       <Button onClick={() => setConfirming(false)} size="sm" variant="ghost">
         Cancel
       </Button>

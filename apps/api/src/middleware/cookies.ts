@@ -1,10 +1,6 @@
 import type { CookieOptions, Response } from "express";
 
-import {
-  ACCESS_TOKEN_COOKIE,
-  REFRESH_COOKIE_PATH,
-  REFRESH_TOKEN_COOKIE,
-} from "@/shared/constants";
+import { ACCESS_TOKEN_COOKIE, REFRESH_COOKIE_PATH, REFRESH_TOKEN_COOKIE } from "@/shared/constants";
 
 import { env, isProduction } from "../env";
 import { durationToMs } from "../utils/tokens";
@@ -17,10 +13,13 @@ const baseOptions = (): CookieOptions => ({
   secure: isProduction,
 });
 
-export const setAuthCookies = (res: Response, tokens: {
-  accessToken: string;
-  refreshToken: string;
-}) => {
+export const setAuthCookies = (
+  res: Response,
+  tokens: {
+    accessToken: string;
+    refreshToken: string;
+  },
+) => {
   res.cookie(ACCESS_TOKEN_COOKIE, tokens.accessToken, {
     ...baseOptions(),
     maxAge: durationToMs(env.ACCESS_TOKEN_TTL),

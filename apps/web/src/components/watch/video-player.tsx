@@ -230,7 +230,9 @@ export const VideoPlayer = ({
           "absolute inset-x-0 bottom-0 flex flex-col gap-1 bg-gradient-to-t from-black/85 to-transparent p-3 transition-opacity",
           // Controls fade out during playback but stay up whenever the pointer
           // or keyboard focus is inside the player.
-          playing ? "opacity-0 group-focus-within:opacity-100 group-hover:opacity-100" : "opacity-100",
+          playing
+            ? "opacity-0 group-focus-within:opacity-100 group-hover:opacity-100"
+            : "opacity-100",
         )}
       >
         <input
@@ -268,10 +270,14 @@ export const VideoPlayer = ({
             }}
             type="button"
           >
-            {muted ? <SpeakerOffIcon className="h-5 w-5" /> : <SpeakerLoudIcon className="h-5 w-5" />}
+            {muted ? (
+              <SpeakerOffIcon className="h-5 w-5" />
+            ) : (
+              <SpeakerLoudIcon className="h-5 w-5" />
+            )}
           </button>
 
-          <span className="text-body-s tabular-nums">
+          <span className="tabular-nums text-body-s">
             {formatDuration(currentTime)} / {formatDuration(duration)}
           </span>
 

@@ -31,7 +31,7 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col gap-12 px-4 py-6 lg:py-8">
       {featured && (
-        <section className="animate-fade-in relative overflow-hidden rounded-3xl border border-border">
+        <section className="relative animate-fade-in overflow-hidden rounded-3xl border border-border">
           <div className="absolute inset-0">
             <VideoPoster
               accentColor={featured.channel.accentColor}
@@ -46,7 +46,7 @@ export default async function HomePage() {
           </div>
 
           <div className="relative flex max-w-2xl flex-col gap-4 p-6 sm:p-10 lg:py-16">
-            <p className="text-label text-primary">Most watched</p>
+            <p className="text-primary text-label">Most watched</p>
 
             <h1 className="text-display">{featured.title}</h1>
 

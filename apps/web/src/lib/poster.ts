@@ -79,7 +79,7 @@ const hexToHue = (hex: string): null | number => {
   else if (max === g) hue = (b - r) / delta + 2;
   else hue = (r - g) / delta + 4;
 
-  return Math.round(((hue * 60) + 360) % 360);
+  return Math.round((hue * 60 + 360) % 360);
 };
 
 /** Up to two initials for the poster's centre mark. */

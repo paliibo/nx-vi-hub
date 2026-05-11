@@ -16,19 +16,18 @@ export default function ErrorPage({
   reset: () => void;
 }) {
   useEffect(() => {
-     
     console.error(error);
   }, [error]);
 
   return (
     <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 px-4 text-center">
-      <p className="text-label text-danger">Something went wrong</p>
+      <p className="text-danger text-label">Something went wrong</p>
       <h1 className="text-headline-l">This page did not load</h1>
       <p className="max-w-md text-sm text-muted-foreground">
         The API may be unreachable. Check that it is running, then try again.
       </p>
       {error.digest && (
-        <code className="rounded bg-muted px-2 py-1 font-mono text-body-s text-muted-foreground">
+        <code className="rounded bg-muted px-2 py-1 font-mono text-muted-foreground text-body-s">
           {error.digest}
         </code>
       )}

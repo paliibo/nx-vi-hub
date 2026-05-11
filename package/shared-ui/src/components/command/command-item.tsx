@@ -11,7 +11,7 @@ export const CommandItem = forwardRef<
 >(({ className, ...props }, ref) => (
   <CommandPrimitive.Item
     className={tw(
-      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-muted aria-selected:text-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "aria-selected:bg-muted aria-selected:text-foreground relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className,
     )}
     ref={ref}

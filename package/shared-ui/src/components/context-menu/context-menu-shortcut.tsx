@@ -9,10 +9,7 @@ export const ContextMenuShortcut: FC<HTMLAttributes<HTMLSpanElement>> = ({
 }) => {
   return (
     <span
-      className={tw(
-        "ml-auto text-xs tracking-widest text-muted-foreground",
-        className,
-      )}
+      className={tw("text-muted-foreground ml-auto text-xs tracking-widest", className)}
       {...props}
     />
   );

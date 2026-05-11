@@ -92,7 +92,7 @@ export const CommentList = ({ initialThreads, session, slug, total }: CommentLis
 
   return (
     <section className="flex flex-col gap-6">
-      <h2 className="text-headline-m flex items-center gap-2">
+      <h2 className="flex items-center gap-2 text-headline-m">
         <ChatBubbleIcon className="h-5 w-5 text-muted-foreground" />
         {total} {total === 1 ? "comment" : "comments"}
       </h2>
@@ -128,7 +128,10 @@ export const CommentList = ({ initialThreads, session, slug, total }: CommentLis
         </form>
       ) : (
         <p className="rounded-lg border border-dashed border-border px-4 py-3 text-sm text-muted-foreground">
-          <Link className="font-medium text-primary hover:underline" href={`/sign-in?next=/watch/${slug}`}>
+          <Link
+            className="font-medium text-primary hover:underline"
+            href={`/sign-in?next=/watch/${slug}`}
+          >
             Sign in
           </Link>{" "}
           to join the conversation.
@@ -143,7 +146,7 @@ export const CommentList = ({ initialThreads, session, slug, total }: CommentLis
             <div className="flex min-w-0 flex-1 flex-col gap-1.5">
               <p className="flex flex-wrap items-baseline gap-2">
                 <span className="text-sm font-medium">{thread.author.displayName}</span>
-                <span className="text-body-s text-muted-foreground">
+                <span className="text-muted-foreground text-body-s">
                   {formatRelativeTime(thread.createdAt)}
                   {thread.edited && " · edited"}
                 </span>
@@ -154,7 +157,7 @@ export const CommentList = ({ initialThreads, session, slug, total }: CommentLis
               <div className="flex items-center gap-1">
                 {session && (
                   <button
-                    className="focus-ring rounded px-2 py-1 text-body-s text-muted-foreground transition-colors hover:text-foreground"
+                    className="focus-ring rounded px-2 py-1 text-muted-foreground transition-colors text-body-s hover:text-foreground"
                     onClick={() => setReplyTo(replyTo === thread.id ? null : thread.id)}
                     type="button"
                   >
@@ -163,7 +166,7 @@ export const CommentList = ({ initialThreads, session, slug, total }: CommentLis
                 )}
                 {session?.id === thread.author.id && (
                   <button
-                    className="focus-ring flex items-center gap-1 rounded px-2 py-1 text-body-s text-muted-foreground transition-colors hover:text-danger"
+                    className="focus-ring flex items-center gap-1 rounded px-2 py-1 text-muted-foreground transition-colors text-body-s hover:text-danger"
                     onClick={() => void remove(thread.id)}
                     type="button"
                   >
@@ -190,7 +193,12 @@ export const CommentList = ({ initialThreads, session, slug, total }: CommentLis
                     value={replyDraft}
                   />
                   <div className="flex justify-end gap-2">
-                    <Button onClick={() => setReplyTo(null)} size="sm" type="button" variant="ghost">
+                    <Button
+                      onClick={() => setReplyTo(null)}
+                      size="sm"
+                      type="button"
+                      variant="ghost"
+                    >
                       Cancel
                     </Button>
                     <Button disabled={busy} size="sm" type="submit">
@@ -208,14 +216,14 @@ export const CommentList = ({ initialThreads, session, slug, total }: CommentLis
                       <div className="flex min-w-0 flex-1 flex-col gap-1">
                         <p className="flex flex-wrap items-baseline gap-2">
                           <span className="text-sm font-medium">{reply.author.displayName}</span>
-                          <span className="text-body-s text-muted-foreground">
+                          <span className="text-muted-foreground text-body-s">
                             {formatRelativeTime(reply.createdAt)}
                           </span>
                         </p>
                         <p className="whitespace-pre-wrap text-sm">{reply.body}</p>
                         {session?.id === reply.author.id && (
                           <button
-                            className="focus-ring flex w-fit items-center gap-1 rounded py-0.5 text-body-s text-muted-foreground transition-colors hover:text-danger"
+                            className="focus-ring flex w-fit items-center gap-1 rounded py-0.5 text-muted-foreground transition-colors text-body-s hover:text-danger"
                             onClick={() => void remove(reply.id, thread.id)}
                             type="button"
                           >
@@ -230,7 +238,7 @@ export const CommentList = ({ initialThreads, session, slug, total }: CommentLis
               )}
 
               {thread.replyCount > thread.replies.length && (
-                <p className="text-body-s text-muted-foreground">
+                <p className="text-muted-foreground text-body-s">
                   {thread.replyCount - thread.replies.length} more{" "}
                   {thread.replyCount - thread.replies.length === 1 ? "reply" : "replies"}
                 </p>

@@ -24,7 +24,7 @@ export const Logo = ({ className, compact = false }: LogoProps) => (
     </span>
 
     {!compact && (
-      <span className="text-headline-s tracking-tight">
+      <span className="tracking-tight text-headline-s">
         Vi<span className="text-muted-foreground">Hub</span>
       </span>
     )}

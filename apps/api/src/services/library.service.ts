@@ -10,7 +10,12 @@ import type {
 } from "@/shared/validation";
 
 import { SYSTEM_PLAYLIST, SYSTEM_PLAYLIST_TITLES, SystemPlaylist } from "@/shared/constants";
-import { BadRequestError, ForbiddenError, getPaginatedResponse, NotFoundError } from "@/shared/utils";
+import {
+  BadRequestError,
+  ForbiddenError,
+  getPaginatedResponse,
+  NotFoundError,
+} from "@/shared/utils";
 import { paginationQuerySchema } from "@/shared/utils/validation";
 
 import {
@@ -130,7 +135,10 @@ export const addPlaylistItem = async (
 ) => {
   await loadOwnedPlaylist(playlistId, ownerId);
 
-  const video = await prisma.video.findUnique({ select: { id: true }, where: { id: body.videoId } });
+  const video = await prisma.video.findUnique({
+    select: { id: true },
+    where: { id: body.videoId },
+  });
   if (!video) throw new NotFoundError("Video");
 
   const last = await prisma.playlistItem.findFirst({
@@ -263,7 +271,10 @@ export const listSubscriptions = async (userId: string) => {
 };
 
 export const listLiked = async (userId: string, query: z.infer<typeof paginationQuerySchema>) => {
-  const where = { reactions: { some: { type: "LIKE" as const, userId } }, visibility: "PUBLIC" as const };
+  const where = {
+    reactions: { some: { type: "LIKE" as const, userId } },
+    visibility: "PUBLIC" as const,
+  };
 
   const [rows, count] = await prisma.$transaction([
     prisma.video.findMany({

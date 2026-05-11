@@ -19,17 +19,12 @@ export const buttonVariants = cva(
         sm: "h-8 rounded-md px-3 text-xs",
       },
       variant: {
-        default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
-        destructive:
-          "bg-danger text-danger-foreground shadow-sm hover:bg-danger/90",
-        ghost:
-          "hover:bg-muted hover:text-foreground",
+        default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+        destructive: "bg-danger text-danger-foreground shadow-sm hover:bg-danger/90",
+        ghost: "hover:bg-muted hover:text-foreground",
         link: "text-foreground underline-offset-4 hover:underline",
-        outline:
-          "border border-border bg-surface shadow-sm hover:bg-muted hover:text-foreground",
-        secondary:
-          "bg-muted text-foreground shadow-sm hover:bg-muted/80",
+        outline: "border border-border bg-surface shadow-sm hover:bg-muted hover:text-foreground",
+        secondary: "bg-muted text-foreground shadow-sm hover:bg-muted/80",
       },
     },
   },

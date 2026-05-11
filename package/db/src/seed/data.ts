@@ -451,8 +451,7 @@ export const VIDEOS: SeedVideo[] = [
   {
     categorySlug: "outdoors",
     channelHandle: "longway",
-    description:
-      "The town has a population of forty and a bus twice a week. I stayed for a month.",
+    description: "The town has a population of forty and a bus twice a week. I stayed for a month.",
     tags: ["travel", "portrait"],
     title: "Population forty, bus twice a week",
   },

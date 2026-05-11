@@ -3,9 +3,7 @@ import type { Metadata } from "next";
 import { PlusIcon, VideoIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 
-import type {
-  ListChannelVideosResponseSchema,
-} from "@/shared/validation";
+import type { ListChannelVideosResponseSchema } from "@/shared/validation";
 
 import { CreateChannelForm } from "../../components/studio/create-channel-form";
 import { EmptyState, PageHeader } from "../../components/ui";

@@ -12,10 +12,10 @@ export const Slider = forwardRef<ElementRef<typeof Root>, ComponentPropsWithoutR
       ref={ref}
       {...props}
     >
-      <Track className="relative h-1.5 w-full grow overflow-hidden rounded-full bg-primary/20">
-        <Range className="absolute h-full bg-primary" />
+      <Track className="bg-primary/20 relative h-1.5 w-full grow overflow-hidden rounded-full">
+        <Range className="bg-primary absolute h-full" />
       </Track>
-      <Thumb className="block h-4 w-4 rounded-full border border-border border-border-strong/50 bg-surface shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50" />
+      <Thumb className="border-border border-border-strong/50 bg-surface focus-visible:ring-ring block h-4 w-4 rounded-full border shadow transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50" />
     </Root>
   ),
 );

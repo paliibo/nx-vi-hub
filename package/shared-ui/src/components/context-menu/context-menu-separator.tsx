@@ -8,10 +8,6 @@ export const ContextMenuSeparator = forwardRef<
   ElementRef<typeof Separator>,
   ComponentPropsWithoutRef<typeof Separator>
 >(({ className, ...props }, ref) => (
-  <Separator
-    className={tw("-mx-1 my-1 h-px bg-muted", className)}
-    ref={ref}
-    {...props}
-  />
+  <Separator className={tw("bg-muted -mx-1 my-1 h-px", className)} ref={ref} {...props} />
 ));
 ContextMenuSeparator.displayName = Separator.displayName;

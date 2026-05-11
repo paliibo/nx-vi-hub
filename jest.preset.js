@@ -12,7 +12,7 @@ const WORKSPACE_ROOT = __dirname;
  * paths so every project gets the same mapping regardless of how deeply it is
  * nested.
  */
-const stripJsonComments = (text) =>
+const stripJsonComments = text =>
   text.replace(/\\"|"(?:\\"|[^"])*"|(\/\/.*|\/\*[\s\S]*?\*\/)/g, (match, comment) =>
     comment ? "" : match,
   );
@@ -25,9 +25,7 @@ const moduleNameMapper = Object.fromEntries(
   Object.entries(compilerOptions.paths).map(([alias, [target]]) => {
     // Wildcard aliases capture the remainder; exact aliases are anchored, or
     // "@nx-vi-hub/db" would also swallow "@nx-vi-hub/db/server".
-    const pattern = alias.includes("/*")
-      ? `^${alias.replace("/*", "/(.*)$")}`
-      : `^${alias}$`;
+    const pattern = alias.includes("/*") ? `^${alias.replace("/*", "/(.*)$")}` : `^${alias}$`;
     return [pattern, join(WORKSPACE_ROOT, target.replace("/*", "/$1"))];
   }),
 );

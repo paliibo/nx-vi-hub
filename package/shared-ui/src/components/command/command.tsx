@@ -11,7 +11,7 @@ export const Command = forwardRef<
 >(({ className, ...props }, ref) => (
   <CommandPrimitive
     className={tw(
-      "flex h-full w-full flex-col overflow-hidden rounded-md bg-surface text-foreground",
+      "bg-surface text-foreground flex h-full w-full flex-col overflow-hidden rounded-md",
       className,
     )}
     ref={ref}

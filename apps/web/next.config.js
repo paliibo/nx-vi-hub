@@ -11,8 +11,7 @@ require("dotenv").config({ path: join(__dirname, "../../.env"), quiet: true });
  **/
 const nextConfig = {
   env: {
-    NEXT_PUBLIC_API_BASE_URL:
-      process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:4308",
+    NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:4308",
   },
   output: "standalone",
   reactStrictMode: true,

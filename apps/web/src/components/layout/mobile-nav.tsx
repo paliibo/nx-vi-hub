@@ -27,8 +27,7 @@ export const MobileNav = ({ session }: { session: null | SessionUserSchema }) =>
     >
       {links.map(link => {
         const Icon = link.icon;
-        const active =
-          link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
+        const active = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
 
         return (
           <Link

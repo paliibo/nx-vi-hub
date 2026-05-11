@@ -58,7 +58,7 @@ export const SignInForm = ({ returnTo }: { returnTo?: string }) => {
     >
       <div className="flex flex-col gap-2">
         <Logo />
-        <h1 className="text-headline-l mt-2">Welcome back</h1>
+        <h1 className="mt-2 text-headline-l">Welcome back</h1>
         <p className="text-sm text-muted-foreground">
           Sign in to keep your history, playlists and subscriptions.
         </p>
@@ -99,7 +99,7 @@ export const SignInForm = ({ returnTo }: { returnTo?: string }) => {
       </Button>
 
       <button
-        className="focus-ring rounded-lg border border-dashed border-border px-3 py-2 text-body-s text-muted-foreground transition-colors hover:border-border-strong hover:text-foreground"
+        className="focus-ring rounded-lg border border-dashed border-border px-3 py-2 text-muted-foreground transition-colors text-body-s hover:border-border-strong hover:text-foreground"
         onClick={fillDemo}
         type="button"
       >
@@ -108,7 +108,10 @@ export const SignInForm = ({ returnTo }: { returnTo?: string }) => {
 
       <p className="text-center text-sm text-muted-foreground">
         No account yet?{" "}
-        <Link className="focus-ring rounded font-medium text-primary hover:underline" href="/sign-up">
+        <Link
+          className="focus-ring rounded font-medium text-primary hover:underline"
+          href="/sign-up"
+        >
           Create one
         </Link>
       </p>

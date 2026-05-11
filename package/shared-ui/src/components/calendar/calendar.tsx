@@ -23,7 +23,7 @@ export const Calendar: FC<CalendarProps> = ({
         caption: "flex justify-center pt-1 relative items-center",
         caption_label: "text-sm font-medium",
         cell: tw(
-          "relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-muted [&:has([aria-selected].day-outside)]:bg-muted/50 [&:has([aria-selected].day-range-end)]:rounded-r-md",
+          "[&:has([aria-selected])]:bg-muted [&:has([aria-selected].day-outside)]:bg-muted/50 relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected].day-range-end)]:rounded-r-md",
           props.mode === "range"
             ? "[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md"
             : "[&:has([aria-selected])]:rounded-md",
@@ -37,8 +37,7 @@ export const Calendar: FC<CalendarProps> = ({
         day_outside:
           "day-outside text-muted-foreground opacity-50 aria-selected:bg-muted/50 aria-selected:text-muted-foreground aria-selected:opacity-30",
         day_range_end: "day-range-end",
-        day_range_middle:
-          "aria-selected:bg-muted aria-selected:text-foreground",
+        day_range_middle: "aria-selected:bg-muted aria-selected:text-foreground",
         day_range_start: "day-range-start",
         day_selected:
           "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",

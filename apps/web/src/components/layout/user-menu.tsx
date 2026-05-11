@@ -86,7 +86,7 @@ export const UserMenu = ({ session }: { session: null | SessionUserSchema }) => 
           >
             <div className="border-b border-border px-4 py-3">
               <p className="truncate text-sm font-medium">{session.displayName}</p>
-              <p className="truncate text-body-s text-muted-foreground">@{session.username}</p>
+              <p className="truncate text-muted-foreground text-body-s">@{session.username}</p>
             </div>
 
             <div className="p-1">

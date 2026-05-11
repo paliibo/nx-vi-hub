@@ -6,10 +6,9 @@ import { Select, SelectProps } from "./select";
 export type FormSelectProps<
   TFieldValues extends FieldValues,
   TPath extends FieldPathByValue<TFieldValues, boolean | null | number | string | undefined>,
-> = Omit<
-    SelectProps,
-    "defaultValue" | "onBlur" | "onChange" | "value"
-  > & { containerClassName?: string } & {
+> = Omit<SelectProps, "defaultValue" | "onBlur" | "onChange" | "value"> & {
+  containerClassName?: string;
+} & {
   control: Control<TFieldValues>;
   defaultValue?: PathValue<TFieldValues, TPath>;
   name: TPath;

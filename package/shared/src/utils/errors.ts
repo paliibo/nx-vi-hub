@@ -60,7 +60,6 @@ export class ConflictError extends BaseError.extend("ConflictError", STATUS_CODE
 
 export class ForbiddenError extends BaseError.extend("ForbiddenError", STATUS_CODES.FORBIDDEN) {}
 
-
 export class JWTError extends BaseError.extend("JWTError", STATUS_CODES.FORBIDDEN) {}
 
 export class NotFoundError extends BaseError.extend("NotFoundError", STATUS_CODES.NOT_FOUND) {}

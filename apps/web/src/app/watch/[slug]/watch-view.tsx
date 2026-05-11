@@ -79,7 +79,7 @@ export const WatchView = ({
               </span>
               <span className="flex flex-col">
                 <span className="text-sm font-medium">{video.channel.name}</span>
-                <span className="text-body-s text-muted-foreground">@{video.channel.handle}</span>
+                <span className="text-muted-foreground text-body-s">@{video.channel.handle}</span>
               </span>
             </Link>
 
@@ -113,7 +113,7 @@ export const WatchView = ({
               {video.tags.map(tag => (
                 <li key={tag.id}>
                   <Link
-                    className="focus-ring rounded-full bg-background px-3 py-1 text-body-s text-muted-foreground transition-colors hover:text-foreground"
+                    className="focus-ring rounded-full bg-background px-3 py-1 text-muted-foreground transition-colors text-body-s hover:text-foreground"
                     href={`/search?tag=${tag.slug}`}
                   >
                     #{tag.name}
@@ -125,7 +125,7 @@ export const WatchView = ({
 
           {(video.description.length > 140 || video.tags.length > 0) && (
             <button
-              className="focus-ring mt-2 rounded text-body-s font-medium text-foreground"
+              className="focus-ring mt-2 rounded font-medium text-foreground text-body-s"
               onClick={() => setDescriptionOpen(value => !value)}
               type="button"
             >

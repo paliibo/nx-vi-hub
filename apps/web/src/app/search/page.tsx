@@ -3,10 +3,7 @@ import type { Metadata } from "next";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { Suspense } from "react";
 
-import type {
-  ListCategoriesResponseSchema,
-  ListVideosResponseSchema,
-} from "@/shared/validation";
+import type { ListCategoriesResponseSchema, ListVideosResponseSchema } from "@/shared/validation";
 
 import { SearchFilters } from "../../components/search/search-filters";
 import { EmptyState, PageHeader, PaginationControls } from "../../components/ui";

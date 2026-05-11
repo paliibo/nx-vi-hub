@@ -65,7 +65,7 @@ export const SearchFilters = ({ categories }: SearchFiltersProps) => {
         {(Object.keys(VIDEO_SORT_LABELS) as VideoSort[]).map(sort => (
           <Link
             className={tw(
-              "focus-ring shrink-0 rounded-lg px-3 py-1 text-body-s transition-colors",
+              "focus-ring shrink-0 rounded-lg px-3 py-1 transition-colors text-body-s",
               activeSort === sort
                 ? "bg-muted font-medium text-foreground"
                 : "text-muted-foreground hover:text-foreground",

@@ -12,7 +12,7 @@ export const ToastClose = forwardRef<
 >(({ className, ...props }, ref) => (
   <Close
     className={tw(
-      "absolute right-1 top-1 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100 group-[.destructive]:text-danger-foreground/70 group-[.destructive]:hover:text-danger-foreground group-[.destructive]:focus:ring-danger group-[.destructive]:focus:ring-offset-danger",
+      "text-foreground/50 hover:text-foreground group-[.destructive]:text-danger-foreground/70 group-[.destructive]:hover:text-danger-foreground group-[.destructive]:focus:ring-danger group-[.destructive]:focus:ring-offset-danger absolute right-1 top-1 rounded-md p-1 opacity-0 transition-opacity focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100",
       className,
     )}
     ref={ref}

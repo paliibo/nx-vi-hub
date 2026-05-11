@@ -12,13 +12,16 @@ export type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
 };
 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  ({ className, containerClassName, defaultValue: _defaultValue = "", error, label, ...props }, ref) => {
+  (
+    { className, containerClassName, defaultValue: _defaultValue = "", error, label, ...props },
+    ref,
+  ) => {
     return (
       <div className={tw("max-w-full", containerClassName)}>
         {!!label && <Label>{label}</Label>}
         <textarea
           className={tw(
-            "flex min-h-[60px] w-full rounded-md border border-border bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
+            "border-border placeholder:text-muted-foreground focus-visible:ring-ring flex min-h-[60px] w-full rounded-md border bg-transparent px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50",
             className,
           )}
           ref={ref}

@@ -2,39 +2,76 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
 
 permissions:
   actions: read
   contents: read
 
+concurrency:
+  # A new push supersedes an in-flight run for the same ref.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DATABASE_URL: postgresql://postgres:postgres@localhost:5432/vihub?schema=public
+  ACCESS_TOKEN_SECRET: ci-access-secret-not-used-anywhere-real
+  REFRESH_TOKEN_SECRET: ci-refresh-secret-not-used-anywhere-real
+  ACCESS_TOKEN_TTL: 15m
+  REFRESH_TOKEN_TTL: 30d
+  WEB_ORIGIN: http://localhost:3000
+  NEXT_PUBLIC_API_BASE_URL: http://localhost:4308
+  NODE_ENV: test
+
 jobs:
-  main:
+  verify:
+    name: Lint, test and build
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: vihub
+        ports:
+          - 5432:5432
+        # Without this the first migration can race the server's startup.
+        options: >-
+          --health-cmd "pg_isready -U postgres -d vihub"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
     steps:
       - uses: actions/checkout@v4
         with:
+          # nx-set-shas needs history to work out the affected base.
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@v2
+      - uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: 10
 
-      # Connect your workspace on nx.app and uncomment this to enable task distribution.
-      # The "--stop-agents-after" is optional, but allows idle agents to shut down once the "build" targets have been requested
-      # - run: pnpm dlx nx-cloud start-ci-run --distribute-on="5 linux-medium-js" --stop-agents-after="build"
-
-      # Cache node_modules
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'pnpm'
+          node-version: 22
+          cache: pnpm
 
-      - run: pnpm install --frozen-lockfile
-      - uses: nrwl/nx-set-shas@v4
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
-      # - run: pnpm exec nx-cloud record -- echo Hello World
-      - run: pnpm exec nx affected -t lint test build
+      - name: Apply migrations
+        run: pnpm nx run db:migrate:deploy
+
+      - name: Seed the database
+        # The integration tests read the catalog, so they need content to read.
+        run: pnpm nx run db:seed
+
+      - name: Check formatting
+        run: pnpm nx format:check
+
+      - name: Lint, test and build every project
+        run: pnpm nx run-many -t lint test build

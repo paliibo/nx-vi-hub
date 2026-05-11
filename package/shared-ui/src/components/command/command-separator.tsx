@@ -10,7 +10,7 @@ export const CommandSeparator = forwardRef<
   ComponentPropsWithoutRef<typeof CommandPrimitive.Separator>
 >(({ className, ...props }, ref) => (
   <CommandPrimitive.Separator
-    className={tw("-mx-1 h-px bg-muted", className)}
+    className={tw("bg-muted -mx-1 h-px", className)}
     ref={ref}
     {...props}
   />

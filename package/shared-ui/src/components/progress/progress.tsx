@@ -8,15 +8,12 @@ import { tw } from "@/tailwind";
 export const Progress = forwardRef<ElementRef<typeof Root>, ComponentPropsWithoutRef<typeof Root>>(
   ({ className, value, ...props }, ref) => (
     <Root
-      className={tw(
-        "relative h-2 w-full overflow-hidden rounded-full bg-primary/20",
-        className,
-      )}
+      className={tw("bg-primary/20 relative h-2 w-full overflow-hidden rounded-full", className)}
       ref={ref}
       {...props}
     >
       <Indicator
-        className="h-full w-full flex-1 bg-primary transition-all"
+        className="bg-primary h-full w-full flex-1 transition-all"
         style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
       />
     </Root>

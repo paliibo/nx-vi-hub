@@ -26,7 +26,12 @@ export const PRIMARY_LINKS: NavLink[] = [
 
 export const LIBRARY_LINKS: NavLink[] = [
   { href: "/library", icon: ArchiveIcon, label: "Library", requiresAuth: true },
-  { href: "/library/history", icon: CounterClockwiseClockIcon, label: "History", requiresAuth: true },
+  {
+    href: "/library/history",
+    icon: CounterClockwiseClockIcon,
+    label: "History",
+    requiresAuth: true,
+  },
   { href: "/library/liked", icon: HeartIcon, label: "Liked", requiresAuth: true },
   { href: "/library/playlists", icon: BookmarkIcon, label: "Playlists", requiresAuth: true },
 ];

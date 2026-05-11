@@ -6,7 +6,12 @@ import type {
   UpdateCommentBodySchema,
 } from "@/shared/validation";
 
-import { BadRequestError, ForbiddenError, getPaginatedResponse, NotFoundError } from "@/shared/utils";
+import {
+  BadRequestError,
+  ForbiddenError,
+  getPaginatedResponse,
+  NotFoundError,
+} from "@/shared/utils";
 
 import { commentSelect, threadSelect, toComment, toCommentThread } from "../mappers";
 

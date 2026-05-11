@@ -6,10 +6,9 @@ import { Checkbox, CheckboxProps } from "./checkbox";
 export type FormCheckboxProps<
   TFieldValues extends FieldValues,
   TPath extends FieldPathByValue<TFieldValues, boolean | null | number | string | undefined>,
-> = Omit<
-    CheckboxProps,
-    "defaultValue" | "onBlur" | "onChange" | "value"
-  > & { containerClassName?: string } & {
+> = Omit<CheckboxProps, "defaultValue" | "onBlur" | "onChange" | "value"> & {
+  containerClassName?: string;
+} & {
   control: Control<TFieldValues>;
   defaultValue?: PathValue<TFieldValues, TPath>;
   name: TPath;

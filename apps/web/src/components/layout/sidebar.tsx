@@ -40,7 +40,7 @@ const NavItem = ({ link, pathname }: { link: NavLink; pathname: string }) => {
 
 const Section = ({ children, title }: { children: React.ReactNode; title?: string }) => (
   <div className="flex flex-col gap-0.5">
-    {title && <p className="text-label px-3 pb-1 pt-4 text-muted-foreground">{title}</p>}
+    {title && <p className="px-3 pb-1 pt-4 text-muted-foreground text-label">{title}</p>}
     {children}
   </div>
 );
@@ -59,9 +59,11 @@ export const Sidebar = ({ categories, session }: SidebarProps) => {
       aria-label="Main"
       className="scrollbar-none sticky top-14 hidden h-[calc(100dvh-3.5rem)] w-60 shrink-0 overflow-y-auto border-r border-border px-3 pb-8 lg:block"
     >
-      <Section>{visible(PRIMARY_LINKS).map(link => (
-        <NavItem key={link.href} link={link} pathname={pathname} />
-      ))}</Section>
+      <Section>
+        {visible(PRIMARY_LINKS).map(link => (
+          <NavItem key={link.href} link={link} pathname={pathname} />
+        ))}
+      </Section>
 
       {libraryLinks.length > 0 && (
         <Section title="Library">
@@ -107,7 +109,7 @@ export const Sidebar = ({ categories, session }: SidebarProps) => {
         </Section>
       )}
 
-      <p className="px-3 pt-6 text-body-s text-muted-foreground">
+      <p className="px-3 pt-6 text-muted-foreground text-body-s">
         Vi Hub · a self-hostable video hub
       </p>
     </nav>

@@ -137,7 +137,10 @@ describe("authentication", () => {
       .post("/api/web/auth/sign-in")
       .send({ email: account.email, password: account.password });
 
-    const original = cookieValue(signIn.headers["set-cookie"] as unknown as string[], "vihub_refresh");
+    const original = cookieValue(
+      signIn.headers["set-cookie"] as unknown as string[],
+      "vihub_refresh",
+    );
     expect(original).toBeTruthy();
 
     const refreshed = await session.post("/api/web/auth/refresh");
@@ -295,7 +298,9 @@ describe("library", () => {
     const response = await agent.get("/api/web/library/playlists");
     expect(response.status).toBe(200);
 
-    const systems = response.body.items.map((playlist: { system: null | string }) => playlist.system);
+    const systems = response.body.items.map(
+      (playlist: { system: null | string }) => playlist.system,
+    );
     expect(systems).toContain("watch-later");
     expect(systems).toContain("liked");
   });

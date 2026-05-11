@@ -11,13 +11,13 @@ import {
   HeaderRightProps,
 } from "./header-parts";
 
-export type HeaderProps = HeaderCenterProps & HeaderLeftProps &
-  HeaderRightProps &
-  {
-  header?: ReactNode;
-  headerClassName?: string;
-  isHeaderShown?: boolean;
-};
+export type HeaderProps = HeaderCenterProps &
+  HeaderLeftProps &
+  HeaderRightProps & {
+    header?: ReactNode;
+    headerClassName?: string;
+    isHeaderShown?: boolean;
+  };
 
 export const Header = memo(
   ({
@@ -37,7 +37,7 @@ export const Header = memo(
     ) : (
       <header
         className={tw(
-          "h-header sticky top-0 z-50 flex w-full items-center border-b-2 border-border-strong bg-background p-5",
+          "h-header border-border-strong bg-background sticky top-0 z-50 flex w-full items-center border-b-2 p-5",
           headerClassName,
         )}
       >

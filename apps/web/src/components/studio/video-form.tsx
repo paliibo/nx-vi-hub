@@ -150,18 +150,14 @@ export const VideoForm = ({ categories, initial }: VideoFormProps) => {
 
       <div className="flex items-center gap-2">
         <Button disabled={formState.isSubmitting} type="submit">
-          {formState.isSubmitting
-            ? "Saving…"
-            : initial
-              ? "Save changes"
-              : "Publish"}
+          {formState.isSubmitting ? "Saving…" : initial ? "Save changes" : "Publish"}
         </Button>
         <Button onClick={() => router.back()} type="button" variant="ghost">
           Cancel
         </Button>
       </div>
 
-      <p className="text-body-s text-muted-foreground">
+      <p className="text-muted-foreground text-body-s">
         Preview: {watch("title") || "Untitled"} · {watch("visibility")}
       </p>
     </form>

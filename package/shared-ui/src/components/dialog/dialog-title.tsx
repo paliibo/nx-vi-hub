@@ -10,7 +10,7 @@ export const DialogTitle = forwardRef<
 >(({ className, ...props }, ref) => (
   <Title
     className={tw(
-      "text-lg font-semibold leading-none tracking-tight text-muted-foreground",
+      "text-muted-foreground text-lg font-semibold leading-none tracking-tight",
       className,
     )}
     ref={ref}

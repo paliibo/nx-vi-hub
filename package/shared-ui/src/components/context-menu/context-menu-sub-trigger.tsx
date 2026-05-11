@@ -13,7 +13,7 @@ export const ContextMenuSubTrigger = forwardRef<
 >(({ children, className, inset, ...props }, ref) => (
   <SubTrigger
     className={tw(
-      "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-muted focus:text-foreground data-[state=open]:bg-muted data-[state=open]:text-foreground",
+      "focus:bg-muted focus:text-foreground data-[state=open]:bg-muted data-[state=open]:text-foreground flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none",
       inset && "pl-8",
       className,
     )}

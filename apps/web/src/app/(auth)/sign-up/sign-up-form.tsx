@@ -63,7 +63,7 @@ export const SignUpForm = () => {
     >
       <div className="flex flex-col gap-2">
         <Logo />
-        <h1 className="text-headline-l mt-2">Create your account</h1>
+        <h1 className="mt-2 text-headline-l">Create your account</h1>
         <p className="text-sm text-muted-foreground">
           Free, and everything stays on your own instance.
         </p>
@@ -136,7 +136,10 @@ export const SignUpForm = () => {
 
       <p className="text-center text-sm text-muted-foreground">
         Already have an account?{" "}
-        <Link className="focus-ring rounded font-medium text-primary hover:underline" href="/sign-in">
+        <Link
+          className="focus-ring rounded font-medium text-primary hover:underline"
+          href="/sign-in"
+        >
           Sign in
         </Link>
       </p>

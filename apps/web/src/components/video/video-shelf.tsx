@@ -26,9 +26,7 @@ export const VideoShelf = ({ description, href, title, videos }: VideoShelfProps
       <div className="flex items-end justify-between gap-4">
         <div>
           <h2 className="text-headline-l">{title}</h2>
-          {description && (
-            <p className="mt-0.5 text-sm text-muted-foreground">{description}</p>
-          )}
+          {description && <p className="mt-0.5 text-sm text-muted-foreground">{description}</p>}
         </div>
 
         {href && (

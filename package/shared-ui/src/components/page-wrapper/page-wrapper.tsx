@@ -5,13 +5,13 @@ import { tw } from "@/tailwind";
 import { Footer, FooterProps } from "./footer/footer";
 import { Header, HeaderProps } from "./header/header";
 
-export type PageWrapperProps = FooterProps & HeaderProps &
-  {
-  children: ReactNode;
-  className?: string;
-  contentWrapperClassName?: string;
-  isShown?: boolean;
-};
+export type PageWrapperProps = FooterProps &
+  HeaderProps & {
+    children: ReactNode;
+    className?: string;
+    contentWrapperClassName?: string;
+    isShown?: boolean;
+  };
 
 export const PageWrapper: FC<PageWrapperProps> = ({
   children,
@@ -32,7 +32,7 @@ export const PageWrapper: FC<PageWrapperProps> = ({
   isShown = true,
 }) => {
   return isShown ? (
-    <div className={tw("flex h-full min-h-full w-full flex-1 flex-col bg-background", className)}>
+    <div className={tw("bg-background flex h-full min-h-full w-full flex-1 flex-col", className)}>
       <Header
         header={header}
         headerCenter={headerCenter}
