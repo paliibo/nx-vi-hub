@@ -42,6 +42,16 @@ export default [
     },
   },
   {
+    /**
+     * Build tooling — Jest, Tailwind, PostCSS — is loaded by plain Node before
+     * any TypeScript path alias exists, so these files can only reach shared
+     * workspace configuration by relative path. The boundary rule is about
+     * application code, not about how a config file finds its preset.
+     */
+    files: ["**/jest.config.js", "**/tailwind.config.js", "**/postcss.config.js"],
+    rules: { "@nx/enforce-module-boundaries": "off" },
+  },
+  {
     // Generated Prisma output, build artefacts, and tsconfig files — the last
     // of these are JSONC, which the TypeScript parser reads as JavaScript and
     // rejects on the first unquoted-looking token.
