@@ -71,7 +71,7 @@ jobs:
         run: pnpm nx run db:seed
 
       - name: Check formatting
-        run: pnpm nx format:check
+        run: pnpm nx format:check --all
 
       - name: Lint, test and build every project
         run: pnpm nx run-many -t lint test build
