@@ -4,5 +4,14 @@
   "sourceRoot": "apps/web",
   "projectType": "application",
   "tags": ["scope:web", "type:app"],
-  "targets": {}
+  "targets": {
+    "build": {
+      "// note": "Nx sets NODE_ENV=development for run-commands targets. `next build` produces a production bundle regardless, but with NODE_ENV=development it loads the development pages runtime alongside it, and prerendering /404 then fails with '<Html> should not be imported outside of pages/_document'. Forcing production makes the build deterministic.",
+      "options": {
+        "env": {
+          "NODE_ENV": "production"
+        }
+      }
+    }
+  }
 }
