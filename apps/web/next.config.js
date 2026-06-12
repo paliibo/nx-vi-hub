@@ -13,7 +13,13 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:4308",
   },
+  // Emits a self-contained server with only the modules it actually imports,
+  // which is what the Docker image runs.
   output: "standalone",
+  // Traces from the workspace root rather than apps/web, so dependencies
+  // hoisted to the root node_modules are included. Without it the standalone
+  // server is missing styled-jsx and dies on boot.
+  outputFileTracingRoot: join(__dirname, "../.."),
   reactStrictMode: true,
 };
 
