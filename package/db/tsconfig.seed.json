@@ -1,11 +1,15 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "esModuleInterop": true,
     "module": "CommonJS",
     "moduleResolution": "node",
-    "esModuleInterop": true,
-    "noEmit": true,
-    "types": ["node"]
+    "noEmit": false,
+    "outDir": "../../dist/seed",
+    "rootDir": "src/seed",
+    "types": ["node"],
+    "incremental": false,
+    "sourceMap": false
   },
   "include": ["src/seed/**/*.ts"]
 }

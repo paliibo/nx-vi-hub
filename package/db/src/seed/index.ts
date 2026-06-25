@@ -1,12 +1,34 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import * as argon2 from "argon2";
 import { config } from "dotenv";
-import { join } from "path";
+import { existsSync } from "fs";
+import { dirname, join } from "path";
 
 import { CATEGORIES, CHANNELS, COMMENT_BODIES, REPLY_BODIES, SAMPLE_SOURCES, VIDEOS } from "./data";
 import { daysBefore, pick, pickFrom, slugify } from "./helpers";
 
-config({ path: join(__dirname, "../../../../.env") });
+/**
+ * Walks up from this file looking for the workspace .env.
+ *
+ * A fixed relative path breaks the moment the seed runs from somewhere other
+ * than its source tree — which is exactly what happens in the Docker image,
+ * where it is compiled to dist/seed and sits at a different depth.
+ */
+const findEnvFile = (from: string): string | undefined => {
+  let directory = from;
+  for (let depth = 0; depth < 8; depth += 1) {
+    const candidate = join(directory, ".env");
+    if (existsSync(candidate)) return candidate;
+    const parent = dirname(directory);
+    if (parent === directory) break;
+    directory = parent;
+  }
+  return undefined;
+};
+
+// In a container the values come from the environment and there is no file,
+// which is fine: dotenv never overwrites what is already set.
+config({ path: findEnvFile(__dirname), quiet: true });
 
 const prisma = new PrismaClient();
 

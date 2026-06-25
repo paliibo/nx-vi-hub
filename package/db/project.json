@@ -39,6 +39,11 @@
       "options": {
         "lintFilePatterns": ["package/db/**/*.ts"]
       }
+    },
+    "build-seed": {
+      "// note": "Compiles the seed to plain JavaScript so it can run in an image that has no ts-node.",
+      "command": "tsc -p package/db/tsconfig.seed.json",
+      "outputs": ["{workspaceRoot}/dist/seed"]
     }
   }
 }
