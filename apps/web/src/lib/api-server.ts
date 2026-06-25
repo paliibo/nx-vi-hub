@@ -3,6 +3,7 @@ import { initClient } from "@ts-rest/core";
 import { cookies } from "next/headers";
 
 import { webContract } from "@/shared/api";
+import { STATUS_CODES } from "@/shared/constants";
 
 import { SERVER_API_BASE_URL } from "./config";
 
@@ -18,18 +19,32 @@ export const serverApi = initClient(webContract, {
   api: async ({ body, fetchOptions, headers, method, path }) => {
     const cookieHeader = (await cookies()).toString();
 
-    const response = await fetch(path, {
-      ...fetchOptions,
-      body,
-      // The catalog changes as people publish and comment, so a stale render is
-      // worse than an extra request.
-      cache: "no-store",
-      headers: {
-        ...headers,
-        ...(cookieHeader ? { cookie: cookieHeader } : {}),
-      },
-      method,
-    });
+    let response: Response;
+
+    try {
+      response = await fetch(path, {
+        ...fetchOptions,
+        body,
+        // The catalog changes as people publish and comment, so a stale render
+        // is worse than an extra request.
+        cache: "no-store",
+        headers: {
+          ...headers,
+          ...(cookieHeader ? { cookie: cookieHeader } : {}),
+        },
+        method,
+      });
+    } catch {
+      // The API being unreachable is an expected state — it is a separate
+      // process, and in development it is often simply not running yet. Turning
+      // the thrown fetch error into a response lets pages fall through to their
+      // empty state via okOrNull instead of the whole route throwing a 500.
+      return {
+        body: { message: "The API is not reachable.", name: "ServerError" },
+        headers: new Headers(),
+        status: STATUS_CODES.SERVER_ERROR,
+      };
+    }
 
     const contentType = response.headers.get("content-type") ?? "";
     const responseBody = contentType.includes("json")
