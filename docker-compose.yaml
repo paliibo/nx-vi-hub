@@ -1,52 +1,78 @@
-# DEV
-
-version: "3.8"
+# Brings up the whole stack: Postgres, the API and the web app.
+#
+#   cp .env.example .env
+#   docker compose up --build
+#
+# Then open http://localhost:3000 and sign in with demo@vihub.dev / demo1234.
 
 services:
   postgres:
-    image: postgres
-    container_name: db
+    image: postgres:16-alpine
+    container_name: vihub-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-vihub}
     ports:
-      - 5432:5432
+      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: db
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d db"]
-      interval: 10s
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-vihub}"]
+      interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 10
       start_period: 10s
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: "1"
-          memory: 4G
+
   api:
     build:
       context: .
       dockerfile: Dockerfile.api
-    container_name: api
-    restart: always
+    container_name: vihub-api
+    restart: unless-stopped
     environment:
-      DATABASE_URL: postgres://postgres:postgres@localhost:5432/postgres
+      # `postgres` is the service name; localhost would be the API's own container.
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-vihub}?schema=public
+      NODE_ENV: production
+      PORT: 4308
+      WEB_ORIGIN: ${WEB_ORIGIN:-http://localhost:3000}
+      ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET:?set ACCESS_TOKEN_SECRET in .env}
+      REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET:?set REFRESH_TOKEN_SECRET in .env}
+      ACCESS_TOKEN_TTL: ${ACCESS_TOKEN_TTL:-15m}
+      REFRESH_TOKEN_TTL: ${REFRESH_TOKEN_TTL:-30d}
     ports:
       - "4308:4308"
     depends_on:
-      - postgres
+      postgres:
+        # Waits for the health check, not just for the container to exist —
+        # otherwise the migration races Postgres' startup.
+        condition: service_healthy
+    # nx and ts-node are dev dependencies and are not in the runtime image, so
+    # this calls the Prisma CLI and the compiled seed directly.
+    command: >-
+      sh -c "pnpm exec prisma migrate deploy --schema=package/db/prisma/schema.prisma
+      && node dist/seed/index.js
+      && node dist/apps/api/main.js"
+
   web:
     build:
       context: .
       dockerfile: Dockerfile.web
-    container_name: web
-    restart: always
+      args:
+        # Reaches the browser, so it must be the published address rather than
+        # the internal service name.
+        NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:4308}
+    container_name: vihub-web
+    restart: unless-stopped
+    environment:
+      # Server components run inside this container and can use the service name.
+      API_BASE_URL: http://api:4308
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:4308}
     ports:
       - "3000:3000"
     depends_on:
       - api
+
 volumes:
-  pgdata: {}
+  pgdata:
