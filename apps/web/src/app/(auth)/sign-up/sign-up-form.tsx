@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import type { SignUpFormSchema } from "@/shared/validation";
@@ -16,7 +15,6 @@ import { Logo } from "../../../components/brand";
 import { api } from "../../../lib/api-client";
 
 export const SignUpForm = () => {
-  const router = useRouter();
   const [error, setError] = useState<null | string>(null);
 
   const { control, formState, handleSubmit } = useForm<SignUpFormSchema>({
@@ -46,8 +44,9 @@ export const SignUpForm = () => {
     });
 
     if (result.status === 201) {
-      router.refresh();
-      router.push("/");
+      // Full reload for the same reason as sign-in: the new session has to
+      // reach the root layout, not just this route.
+      window.location.assign("/");
       return;
     }
 

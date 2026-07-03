@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import type { SignInBodySchema } from "@/shared/validation";
@@ -17,7 +16,6 @@ import { api } from "../../../lib/api-client";
 const DEMO = { email: "demo@vihub.dev", password: "demo1234" };
 
 export const SignInForm = ({ returnTo }: { returnTo?: string }) => {
-  const router = useRouter();
   const [error, setError] = useState<null | string>(null);
 
   const { control, formState, handleSubmit, setValue } = useForm<SignInBodySchema>({
@@ -34,10 +32,18 @@ export const SignInForm = ({ returnTo }: { returnTo?: string }) => {
     const result = await api.auth.signIn({ body: values });
 
     if (result.status === 200) {
-      // refresh() re-renders the server tree with the new session before the
-      // navigation, so the destination never flashes its signed-out state.
-      router.refresh();
-      router.push(returnTo && returnTo.startsWith("/") ? returnTo : "/");
+      // A full document navigation rather than router.push().
+      //
+      // The session is read by the root layout, so signing in changes every
+      // server component on the page. router.refresh() followed by a push races
+      // — the push cancels the in-flight refresh and the shell renders signed
+      // out until the next reload. Reloading is unambiguous, and an auth
+      // transition is exactly the moment where paying for one is fine.
+      //
+      // Only same-origin paths are accepted, so a crafted ?next= cannot bounce
+      // the user off the site.
+      const target = returnTo?.startsWith("/") && !returnTo.startsWith("//") ? returnTo : "/";
+      window.location.assign(target);
       return;
     }
 

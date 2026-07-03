@@ -2,7 +2,6 @@
 
 import { ExitIcon, GearIcon, PersonIcon, VideoIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import type { SessionUserSchema } from "@/shared/types/db";
@@ -19,7 +18,6 @@ const MENU_LINKS = [
 ];
 
 export const UserMenu = ({ session }: { session: null | SessionUserSchema }) => {
-  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
 
@@ -40,11 +38,10 @@ export const UserMenu = ({ session }: { session: null | SessionUserSchema }) => 
     setSigningOut(true);
     await api.auth.logout({ body: {} });
     setOpen(false);
-    // refresh() re-runs the server components so every surface that read the
-    // session — sidebar, menus, library links — reflects the sign-out at once.
-    router.refresh();
-    router.push("/");
-    setSigningOut(false);
+    // Full reload, matching sign-in: every surface that read the session —
+    // sidebar, menus, library links — has to re-render, and a refresh followed
+    // by a push races against itself.
+    window.location.assign("/");
   };
 
   const initials = session.displayName.slice(0, 2).toUpperCase();
