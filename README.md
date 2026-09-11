@@ -1,18 +1,38 @@
+<div align="center">
+
 # Vi Hub
 
-A self-hostable video hub — browse a catalog, watch, comment, subscribe and
-curate playlists. Built as an Nx monorepo where a single **ts-rest contract** is
-the only definition of the HTTP surface: the Express API implements it, the
-Next.js app consumes it, and changing a response shape breaks the build on both
-sides rather than returning the wrong JSON at runtime.
+**A self-hostable video hub — browse a catalog, watch, comment, subscribe and curate playlists.**
+An Nx monorepo where a single ts-rest contract is the only definition of the HTTP surface:
+the Express API implements it, the Next.js app consumes it, and changing a response shape
+breaks the build on both sides rather than returning the wrong JSON at runtime.
+
+[![CI](https://github.com/paliibo/nx-vi-hub/actions/workflows/ci.yml/badge.svg)](https://github.com/paliibo/nx-vi-hub/actions/workflows/ci.yml)
+![Nx 23](https://img.shields.io/badge/Nx-23-143055?logo=nx&logoColor=white)
+![Next.js 15](https://img.shields.io/badge/Next.js-15-black?logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)
+![Prisma 5](https://img.shields.io/badge/Prisma-5-2D3748?logo=prisma&logoColor=white)
+![ts-rest](https://img.shields.io/badge/ts--rest-one%20contract-7C3AED)
+![Tests](https://img.shields.io/badge/tests-82%20jest%20%C2%B7%2030%20e2e-brightgreen)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+<img src="docs/screenshots/home-dark.png" alt="The Vi Hub home page: a featured hero, the Continue watching shelf and the sidebar with categories and the library" width="900">
+
+</div>
+
+---
+
+## Running it
 
 ```bash
+git clone https://github.com/paliibo/nx-vi-hub.git && cd nx-vi-hub
 cp .env.example .env
 docker compose up --build
 # http://localhost:3000 — sign in with demo@vihub.dev / demo1234
 ```
 
----
+That brings up Postgres, runs the migrations, seeds the catalog and starts both apps.
+There is no external service to sign up for and no API key to obtain.
 
 ## What it does
 
@@ -26,6 +46,17 @@ docker compose up --build
 | **Library** | Watch history with resume bars, liked videos, and playlists you can create, reorder and delete |
 | **Studio** | Publish, edit and unpublish videos on your own channel, with public / unlisted / private visibility |
 | **Themes** | Light, dark and system, driven entirely by semantic design tokens |
+
+## Screenshots
+
+|                                                                                                 |                                                                                           |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| ![The watch page: player, channel row with subscribe, reactions, and Up next](docs/screenshots/watch-dark.png) | ![The command palette open over the home page](docs/screenshots/palette-dark.png)          |
+| _Watch page — player, reactions, Up next_                                                       | _Command palette (<kbd>⌘K</kbd>)_                                                         |
+| ![Search results with category and sort filters](docs/screenshots/search-dark.png)             | ![A channel page: header, subscribe button and the channel's videos](docs/screenshots/channel-dark.png) |
+| _Search — every filter combination is a URL_                                                    | _Channel page_                                                                            |
+| ![The home page in the light theme](docs/screenshots/home-light.png)                            | ![The watch page on a phone with the bottom navigation](docs/screenshots/watch-mobile.png) |
+| _Light theme — the same tokens, not an inverted palette_                                        | _Phone layout with bottom navigation_                                                     |
 
 ## Stack
 
@@ -45,40 +76,28 @@ package/
 
 ### Why a shared contract
 
-`package/shared/src/api` describes the whole surface once — 42 operations
-across 31 paths. The API implements it
-through `@ts-rest/express`, so a handler that returns the wrong shape does not
-compile; the web app calls it through `@ts-rest/core`, so a page reading a field
-that no longer exists does not compile either. Request validation and response
-parsing both come from the same Zod schemas.
+`package/shared/src/api` describes the whole surface once — 42 operations across 31
+paths. The API implements it through `@ts-rest/express`, so a handler that returns the
+wrong shape does not compile; the web app calls it through `@ts-rest/core`, so a page
+reading a field that no longer exists does not compile either. Request validation and
+response parsing both come from the same Zod schemas, and the OpenAPI document served at
+`/api-docs` is generated from the contract rather than maintained beside it.
 
 Discovery and type-ahead live under `/catalog` rather than `/videos` on purpose:
-`/videos/discover` would stop resolving the day somebody published a video whose
-slug happened to be `discover`.
+`/videos/discover` would stop resolving the day somebody published a video whose slug
+happened to be `discover`.
 
 ### Auth
 
-Access tokens are short-lived JWTs; refresh tokens are 48 random bytes stored as
-a SHA-256 hash in their own table, which makes them individually revocable and
-useless to anyone who reads the database. Both travel as `httpOnly` cookies, and
-the refresh cookie is scoped to the auth routes so nothing else ever receives
-it. Presenting a refresh token spends it and issues a new one, so a replay finds
-it revoked. Passwords use argon2id at the OWASP floor, and sign-in verifies
-against a real hash even when the account does not exist, so a missing email and
-a wrong password take the same time to answer.
+Access tokens are short-lived JWTs; refresh tokens are 48 random bytes stored as a
+SHA-256 hash in their own table, which makes them individually revocable and useless to
+anyone who reads the database. Both travel as `httpOnly` cookies, and the refresh cookie
+is scoped to the auth routes so nothing else ever receives it. Presenting a refresh token
+spends it and issues a new one, so a replay finds it revoked. Passwords use argon2id at
+the OWASP floor, and sign-in verifies against a real hash even when the account does not
+exist, so a missing email and a wrong password take the same time to answer.
 
-## Running it
-
-### With Docker
-
-```bash
-cp .env.example .env
-docker compose up --build
-```
-
-Brings up Postgres, runs migrations, seeds the catalog and starts both apps.
-
-### Locally
+## Running it without Docker
 
 Requires Node 22+, pnpm 10+ and a PostgreSQL 16 database.
 
@@ -99,16 +118,15 @@ pnpm nx dev web               # http://localhost:3000
 | http://localhost:4308/health | Liveness |
 
 The seed creates 7 channels, 37 videos and 122 comments, and a demo account —
-**demo@vihub.dev / demo1234** — that already has history, subscriptions and a
-playlist, so every shelf has something in it. It is deterministic: durations,
-view counts and dates are hashed from each video's slug, so the catalog is
-identical on every machine. Every write is an upsert, so re-running it changes
-nothing.
+**demo@vihub.dev / demo1234** — that already has history, subscriptions and a playlist,
+so every shelf has something in it. It is deterministic: durations, view counts and dates
+are hashed from each video's slug, so the catalog is identical on every machine. Every
+write is an upsert, so re-running it changes nothing.
 
-Playable media points at the Blender Foundation's open movies. Nothing breaks
-without network access — videos fall back to generated poster art, which is what
-the seeded catalog uses for thumbnails anyway: a gradient derived from a hash of
-the video's slug, anchored to its channel's accent colour.
+Playable media points at the Blender Foundation's open movies. Nothing breaks without
+network access — videos fall back to generated poster art, which is what the seeded
+catalog uses for thumbnails anyway: a gradient derived from a hash of the video's slug,
+anchored to its channel's accent colour.
 
 ## Development
 
@@ -119,12 +137,11 @@ pnpm nx run db:studio                 # browse the database
 pnpm nx format:write --all
 ```
 
-Tests are Jest: 82 across the workspace. The API suite includes 30 end-to-end
-cases that drive the real Express app against a real Postgres database through
-supertest — the auth lifecycle including refresh rotation and replay rejection,
-ownership rules, the comment depth limit, resume clamping and the library. Each
-run namespaces its records and deletes them afterwards, so it is safe against a
-seeded development database.
+Tests are Jest: 82 across the workspace. The API suite includes 30 end-to-end cases that
+drive the real Express app against a real Postgres database through supertest — the auth
+lifecycle including refresh rotation and replay rejection, ownership rules, the comment
+depth limit, resume clamping and the library. Each run namespaces its records and deletes
+them afterwards, so it is safe against a seeded development database.
 
 CI runs the same commands against a `postgres:16` service.
 
@@ -132,10 +149,14 @@ CI runs the same commands against a `postgres:16` service.
 
 - **One `.env` at the root.** Prisma resolves it, the API loads it on boot, and
   `next.config.js` forwards the public values into the browser bundle.
-- `API_BASE_URL` and `NEXT_PUBLIC_API_BASE_URL` are different values, not a
-  fallback chain: server components reach the API over the internal network,
-  the browser needs an address the user's machine can resolve.
-- The web build pins `NODE_ENV=production`. Nx sets `development` for
-  run-commands targets, and Next then loads its development pages runtime
-  alongside a production bundle, which fails prerendering with `<Html> should
-  not be imported outside of pages/_document`.
+- `API_BASE_URL` and `NEXT_PUBLIC_API_BASE_URL` are different values, not a fallback
+  chain: server components reach the API over the internal network, the browser needs an
+  address the user's machine can resolve.
+- The web build pins `NODE_ENV=production`. Nx sets `development` for run-commands
+  targets, and Next then loads its development pages runtime alongside a production
+  bundle, which fails prerendering with `<Html> should not be imported outside of
+  pages/_document`.
+
+## Licence
+
+[MIT](LICENSE) © paliibo
